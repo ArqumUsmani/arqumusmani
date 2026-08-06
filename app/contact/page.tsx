@@ -76,6 +76,19 @@ export default function ContactPage() {
               >
                 {SITE_CONFIG.email}
               </a>
+              <div className="mt-3">
+                <a
+                  href={`https://wa.me/${SITE_CONFIG.whatsapp.replace("+", "")}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-body-l text-ink underline decoration-mist decoration-1 underline-offset-4 transition-colors duration-300 hover:decoration-signal"
+                >
+                  WhatsApp: {SITE_CONFIG.whatsapp}
+                </a>
+              </div>
+              <p className="mt-6 max-w-[42ch] text-body-s text-graphite">
+                Want to get connected? Let&rsquo;s talk over coffee, virtual or otherwise.
+              </p>
               <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
                 {SOCIAL_LINKS.map((link) => (
                   <a

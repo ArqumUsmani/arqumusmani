@@ -1,16 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Inter_Tight, Geist_Mono } from "next/font/google";
+import { Inter_Tight, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SpecRail } from "@/components/layout/SpecRail";
+import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { SITE_CONFIG } from "@/lib/site-config";
 
 const interTight = Inter_Tight({
   variable: "--font-inter-tight",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -18,6 +19,17 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
   weight: ["400", "500"],
+  display: "swap",
+});
+
+// Single-weight display serif, italic only — reserved for the one-off accent
+// phrases on the About sections. Not part of the type scale, don't reach for
+// it elsewhere.
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["italic"],
   display: "swap",
 });
 
@@ -66,10 +78,11 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${interTight.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${interTight.variable} ${geistMono.variable} ${instrumentSerif.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-paper text-ink">
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+        <SmoothScroll />
         <a
           href="#main-content"
           className="fixed left-4 top-4 z-[100] -translate-y-16 bg-ink px-4 py-3 font-mono text-mono-label uppercase text-paper transition-transform duration-300 focus-visible:translate-y-0"

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Container } from "@/components/primitives/Container";
 import { Section } from "@/components/primitives/Section";
 import { Grid } from "@/components/primitives/Grid";
@@ -7,7 +6,7 @@ import { Reveal } from "@/components/primitives/Reveal";
 import { MonoLabel } from "@/components/primitives/MonoLabel";
 import { Rule } from "@/components/primitives/Rule";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
-import { preventOrphans } from "@/lib/typography";
+import { PortraitFrame } from "@/components/home/PortraitFrame";
 import { JsonLd } from "@/components/JsonLd";
 import { personJsonLd } from "@/lib/json-ld";
 
@@ -67,7 +66,8 @@ export default function AboutPage() {
                   About
                 </MonoLabel>
                 <h1 className="max-w-[16ch] text-display-xl text-ink">
-                  {preventOrphans("I design for the version of the problem that's actually true.")}
+                  I design for the version of the problem that&rsquo;s{" "}
+                  <span className="font-serif italic">actually true.</span>
                 </h1>
               </Reveal>
               <Reveal inView={false} index={1} className="mt-10">
@@ -83,31 +83,24 @@ export default function AboutPage() {
                   design that ignores them doesn&rsquo;t just look wrong, it doesn&rsquo;t ship.
                 </p>
                 <p className="mt-6 max-w-[60ch] text-body text-graphite">
-                  I grew up in Karachi and trained as a designer in Islamabad, where I still live
-                  and work. Every team I&rsquo;ve shipped for since has been based in the US, which in
-                  practice mostly means my mornings start with someone else&rsquo;s afternoon.
+                  I use AI daily, for ideation, research, drafting, and debugging, not as a novelty
+                  but as how I actually work now. I expect the same of the products I design: if a
+                  tool doesn&rsquo;t make someone faster at reaching the right answer, it&rsquo;s not done yet.
                 </p>
               </Reveal>
-              <Reveal index={2} className="mt-8">
+              <Reveal index={2} className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
                 <ArrowLink href="/resume.pdf" variant="mono">
                   Download resume (PDF)
+                </ArrowLink>
+                <ArrowLink href="/contact" variant="mono">
+                  Want to get connected? Let&rsquo;s talk over coffee
                 </ArrowLink>
               </Reveal>
             </div>
 
             <div className="md:col-span-4">
               <Reveal inView={false} index={1}>
-                <div className="w-full border border-mist bg-fog">
-                  <Image
-                    src="/about/portrait.svg"
-                    alt="Portrait of Arqum Usmani"
-                    width={900}
-                    height={1120}
-                    priority
-                    sizes="(max-width: 768px) 100vw, 320px"
-                    className="h-auto w-full"
-                  />
-                </div>
+                <PortraitFrame priority sizes="(max-width: 768px) 100vw, 320px" />
               </Reveal>
             </div>
           </div>

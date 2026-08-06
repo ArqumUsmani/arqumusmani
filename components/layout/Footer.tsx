@@ -1,71 +1,124 @@
 import { Container } from "@/components/primitives/Container";
-import { Rule } from "@/components/primitives/Rule";
+import { Reveal } from "@/components/primitives/Reveal";
 import { MonoLabel } from "@/components/primitives/MonoLabel";
+import BlurText from "@/components/primitives/BlurText";
+import { Clock } from "@/components/layout/Clock";
 import { preventOrphans } from "@/lib/typography";
 import { SITE_CONFIG } from "@/lib/site-config";
 
-const SOCIAL_LINKS = [
-  { label: "LinkedIn", href: SITE_CONFIG.social.linkedin },
-  { label: "Behance", href: SITE_CONFIG.social.behance },
-  { label: "Dribbble", href: SITE_CONFIG.social.dribbble },
+const FOOTER_COLUMNS = [
+  {
+    heading: "Explore",
+    links: [
+      { label: "Selected work", href: "/work" },
+      { label: "Notes", href: "/notes" },
+      { label: "About", href: "/about" },
+    ],
+  },
+  {
+    heading: "Say hello",
+    links: [
+      { label: "Email", href: `mailto:${SITE_CONFIG.email}` },
+      { label: "WhatsApp", href: `https://wa.me/${SITE_CONFIG.whatsapp.replace("+", "")}`, external: true },
+      { label: "LinkedIn", href: SITE_CONFIG.social.linkedin, external: true },
+    ],
+  },
+  {
+    heading: "Elsewhere",
+    links: [
+      { label: "Behance", href: SITE_CONFIG.social.behance, external: true },
+      { label: "Dribbble", href: SITE_CONFIG.social.dribbble, external: true },
+    ],
+  },
 ];
 
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-mist">
-      <Container className="py-24 md:py-40">
-        <MonoLabel as="p" className="mb-6">
-          Availability
-        </MonoLabel>
-        <h2 className="max-w-[16ch] text-display-m text-ink">
-          {preventOrphans("Let's build something worth shipping.")}
-        </h2>
+    <footer className="px-4 pb-8 pt-16 md:px-6 md:pb-10 md:pt-24">
+      {/* rounded-[2rem] is a deliberate one-off: the site caps radius at 2px
+          everywhere else, but this card treatment was a direct, specific
+          request, not a drift. Don't reuse this radius elsewhere. */}
+      <div className="overflow-hidden rounded-[2rem] bg-fog">
+        <Container className="pb-0 pt-16 md:pt-24">
+          <Reveal>
+            <MonoLabel as="p" className="mb-6">
+              Availability
+            </MonoLabel>
+          </Reveal>
 
-        <div className="mt-12 flex flex-col gap-4 sm:flex-row">
-          <a
-            href={`mailto:${SITE_CONFIG.email}?subject=Full-time%20role`}
-            className="inline-flex items-center justify-center rounded-sm bg-ink px-6 py-4 font-mono text-mono-label uppercase text-paper transition-colors duration-300 hover:bg-graphite"
-          >
-            Hire me full-time
-          </a>
-          <a
-            href={`mailto:${SITE_CONFIG.email}?subject=Project%20inquiry`}
-            className="inline-flex items-center justify-center rounded-sm border border-mist px-6 py-4 font-mono text-mono-label uppercase text-ink transition-colors duration-300 hover:border-ink"
-          >
-            Work with me
-          </a>
-        </div>
+          <div className="flex flex-col justify-between gap-12 lg:flex-row lg:gap-8">
+            <div className="lg:max-w-[24ch]">
+              <Reveal>
+                <h2 className="text-display-m text-ink">
+                  {preventOrphans("Let's build something worth shipping.")}
+                </h2>
+              </Reveal>
+              {/* rounded-full on these two is a deliberate one-off, same as
+                  the footer card radius: a direct, specific request, not a
+                  drift from the 2px-radius rule everywhere else. */}
+              <Reveal index={1} className="mt-10 flex flex-col gap-4 sm:flex-row">
+                <a
+                  href={`mailto:${SITE_CONFIG.email}?subject=Full-time%20role`}
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-ink px-7 py-4 font-mono text-mono-label uppercase text-paper transition-colors duration-300 hover:bg-graphite"
+                >
+                  Hire me full-time
+                </a>
+                <a
+                  href={`mailto:${SITE_CONFIG.email}?subject=Project%20inquiry`}
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-full border border-mist px-7 py-4 font-mono text-mono-label uppercase text-ink transition-colors duration-300 hover:border-ink"
+                >
+                  Work with me
+                </a>
+              </Reveal>
+            </div>
 
-        <Rule className="my-16" />
-
-        <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
-            <a
-              href={`mailto:${SITE_CONFIG.email}`}
-              className="font-mono text-mono-label uppercase text-graphite transition-colors duration-300 hover:text-ink"
-            >
-              {SITE_CONFIG.email}
-            </a>
-            {SOCIAL_LINKS.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noreferrer"
-                className="font-mono text-mono-label uppercase text-graphite transition-colors duration-300 hover:text-ink"
-              >
-                {link.label}
-              </a>
-            ))}
+            <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:gap-16">
+              {FOOTER_COLUMNS.map((column, i) => (
+                <Reveal key={column.heading} index={i + 2}>
+                  <MonoLabel as="p" className="mb-5 text-ink">
+                    {column.heading}
+                  </MonoLabel>
+                  <ul className="space-y-3">
+                    {column.links.map((link) => (
+                      <li key={link.label}>
+                        <a
+                          href={link.href}
+                          target={"external" in link && link.external ? "_blank" : undefined}
+                          rel={"external" in link && link.external ? "noreferrer" : undefined}
+                          className="text-body text-graphite transition-colors duration-300 hover:text-ink"
+                        >
+                          {link.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </Reveal>
+              ))}
+            </div>
           </div>
+        </Container>
 
-          <p className="font-mono text-mono-label uppercase text-ash">
-            Designed &amp; built by Arqum · {year}
-          </p>
+        <div className="mt-16 select-none md:mt-24">
+          <BlurText
+            ariaHidden
+            text="Arqum Usmani"
+            animateBy="words"
+            direction="bottom"
+            delay={120}
+            stepDuration={0.5}
+            className="-mb-[0.12em] justify-center px-4 font-sans text-[16vw] font-bold leading-none tracking-tighter text-ink md:-mb-[0.09em] md:text-[13vw]"
+          />
         </div>
-      </Container>
+      </div>
+
+      <div className="mt-6 flex items-center justify-between px-2">
+        <p className="font-mono text-mono-label uppercase text-ash">
+          {SITE_CONFIG.name} &copy; {year}
+        </p>
+        <Clock />
+      </div>
     </footer>
   );
 }

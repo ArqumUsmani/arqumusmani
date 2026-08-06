@@ -8,6 +8,7 @@
 @theme {
   --font-sans: var(--font-inter-tight);
   --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-instrument-serif);
 
   /* Colour — near-monochrome, Signal Ochre used on <2% of any viewport */
   --color-paper: #fafaf8;

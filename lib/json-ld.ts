@@ -13,11 +13,6 @@ export function personJsonLd() {
     jobTitle: "Lead Product Designer & UI/UX Engineer",
     description: SITE_CONFIG.description,
     image: `${SITE_CONFIG.url}/about/portrait.svg`,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Islamabad",
-      addressCountry: "PK",
-    },
     knowsAbout: ["Product Design", "UI/UX Engineering", "Healthcare Software", "AI Products", "SaaS"],
     ...(sameAs.length > 0 ? { sameAs } : {}),
   };

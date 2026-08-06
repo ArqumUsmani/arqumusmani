@@ -7,11 +7,12 @@ export const SITE_CONFIG = {
   name: "Arqum Usmani",
   title: "Arqum Usmani — Lead Product Designer & UI/UX Engineer",
   description:
-    "Lead Product Designer and UI/UX Engineer based in Islamabad, Pakistan. 5+ years across healthcare, AI products, and SaaS — designing systems and writing the production front-end code that ships them.",
+    "Lead Product Designer and UI/UX Engineer. 5+ years across healthcare, AI products, and SaaS, designing systems and writing the production front-end code that ships them.",
   // Defaults to the Vercel preview/production URL until a custom domain is
   // purchased and NEXT_PUBLIC_SITE_URL is set — then this is a one-line change.
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://ausmani.vercel.app",
   email: "hello@ausmani.com",
+  whatsapp: "+923332204980",
   locale: "en_US",
   social: {
     linkedin: "#",
