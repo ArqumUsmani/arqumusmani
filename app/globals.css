@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+/* Class-based dark mode: .dark on <html>. No toggle wired yet — tokens are ready. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: var(--font-inter-tight);
+  --font-mono: var(--font-geist-mono);
+
+  /* Colour — near-monochrome, Signal Ochre used on <2% of any viewport */
+  --color-paper: #fafaf8;
+  --color-ink: #0b0b0b;
+  --color-graphite: #3d3d3b;
+  --color-ash: #6e6e6a;
+  --color-mist: #c9c9c4;
+  --color-fog: #efefec;
+  --color-signal: #b4531f;
+
+  /* Type scale — fluid display steps + fixed body/mono steps */
+  --text-display-xl: clamp(3.5rem, 11vw, 10rem);
+  --text-display-xl--line-height: 0.92;
+  --text-display-xl--letter-spacing: -0.045em;
+  --text-display-xl--font-weight: 500;
+
+  --text-display-l: clamp(2.5rem, 6vw, 5rem);
+  --text-display-l--line-height: 1;
+  --text-display-l--letter-spacing: -0.035em;
+  --text-display-l--font-weight: 500;
+
+  --text-display-m: clamp(1.75rem, 3.5vw, 2.75rem);
+  --text-display-m--line-height: 1.1;
+  --text-display-m--letter-spacing: -0.02em;
+  --text-display-m--font-weight: 500;
+
+  --text-body-l: 1.25rem;
+  --text-body-l--line-height: 1.55;
+  --text-body-l--font-weight: 400;
+
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.65;
+  --text-body--font-weight: 400;
+
+  --text-body-s: 0.9375rem;
+  --text-body-s--line-height: 1.6;
+  --text-body-s--font-weight: 400;
+
+  --text-mono-label: 0.75rem;
+  --text-mono-label--line-height: 1.4;
+  --text-mono-label--letter-spacing: 0.08em;
+  --text-mono-label--font-weight: 500;
+
+  /* Radius — 2px ceiling everywhere except rounded-full (status dot only) */
+  --radius-xs: 2px;
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
+  --radius-2xl: 2px;
+  --radius-3xl: 2px;
+  --radius-4xl: 2px;
+
+  /* Container / grid */
+  --container-page: 1440px;
+
+  /* Motion */
+  --ease-signature: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Dark mode: background/text roles invert onto the same paper/ink tokens
+   so existing bg-paper / text-ink usage flips automatically. */
+.dark {
+  --color-paper: #0a0a0a;
+  --color-ink: #f2f2ef;
+  --color-signal: #d9722f;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-mist);
+  }
+
+  html {
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
