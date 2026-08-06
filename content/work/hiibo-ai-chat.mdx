@@ -1,6 +1,6 @@
 ---
 slug: "hiibo-ai-chat"
-title: "Hiibo — the interface layer for a multi-model AI chat platform"
+title: "Hiibo: the interface layer for a multi-model AI chat platform"
 thesis: "I designed the conversational interface that let non-technical teams run twelve LLM providers against their own data without ever seeing a prompt console."
 client: "Hiibo"
 confidential: false
@@ -29,18 +29,18 @@ order: 1
 
 Hiibo started as an internal tool three engineers built so they could stop copy-pasting between ChatGPT, Claude, and a self-hosted Llama instance. By the time I joined, they'd decided to sell it. The problem: the tool was still built for the three people who wrote it. Every screen assumed you knew what a system prompt was, what temperature did, and which provider was cheapest for which task.
 
-Their buyers were ops leads, support managers, and marketing directors — people who wanted an answer, not a console.
+Their buyers were ops leads, support managers, and marketing directors: people who wanted an answer, not a console.
 
 ## Problem
 
-Users abandoned the product at the same point, every time: the model selection screen. Support tickets and session recordings both pointed at the same failure — people opened a new chat, saw a dropdown of twelve model names with no explanation of what any of them were for, and either picked randomly or left.
+Users abandoned the product at the same point, every time: the model selection screen. Support tickets and session recordings both pointed at the same failure: people opened a new chat, saw a dropdown of twelve model names with no explanation of what any of them were for, and either picked randomly or left.
 
-The team's instinct was to write better tooltips. I pushed back — the problem wasn't a labeling problem, it was an architecture problem. We were asking users to make an infrastructure decision before they'd asked their question.
+The team's instinct was to write better tooltips. I pushed back: the problem wasn't a labeling problem, it was an architecture problem. We were asking users to make an infrastructure decision before they'd asked their question.
 
 ## Constraints
 
 <Callout label="Constraint">
-Hiibo's margin depended on routing cheap queries to cheap models. Any redesign that hid model choice entirely would have removed the lever the business used to stay profitable — so "just pick the best model automatically" wasn't a free option, it had a real cost attached.
+Hiibo's margin depended on routing cheap queries to cheap models. Any redesign that hid model choice entirely would have removed the lever the business used to stay profitable, so "just pick the best model automatically" wasn't a free option, it had a real cost attached.
 </Callout>
 
 <Callout label="Constraint">
@@ -49,26 +49,26 @@ Three of Hiibo's five engineers were the original founders, all backend-first. A
 
 ## Research
 
-I sat in on eleven customer calls over three weeks, and separately ran a card sort with fourteen prospective users on "what would you call this task" instead of "what would you call this model." The pattern that mattered: nobody thought in models. They thought in jobs — "draft a reply," "summarize this doc," "write code." Model choice was a means, not a decision anyone wanted to make consciously.
+I sat in on eleven customer calls over three weeks, and separately ran a card sort with fourteen prospective users on "what would you call this task" instead of "what would you call this model." The pattern that mattered: nobody thought in models. They thought in jobs: "draft a reply," "summarize this doc," "write code." Model choice was a means, not a decision anyone wanted to make consciously.
 
-I also pulled six months of routing logs. Eighty-six percent of queries could be auto-routed within an acceptable cost band without any accuracy loss the team could detect. The remaining fourteen percent were long-context or code tasks where model choice visibly changed output quality — and those were exactly the queries power users cared about controlling.
+I also pulled six months of routing logs. Eighty-six percent of queries could be auto-routed within an acceptable cost band without any accuracy loss the team could detect. The remaining fourteen percent were long-context or code tasks where model choice visibly changed output quality, and those were exactly the queries power users cared about controlling.
 
 <KeyInsight>
-Model choice isn't a setting. For 86% of queries it's an implementation detail, and for the rest it's a craft decision — the interface needed two different answers, not one compromise.
+Model choice isn't a setting. For 86% of queries it's an implementation detail, and for the rest it's a craft decision. The interface needed two different answers, not one compromise.
 </KeyInsight>
 
 ## Explorations
 
-The first version I sketched kept a single dropdown but reordered it by task-relevance, using the routing logs to guess intent from the first few words typed. It tested badly — users didn't trust a list that reordered itself while they were still typing.
+The first version I sketched kept a single dropdown but reordered it by task-relevance, using the routing logs to guess intent from the first few words typed. It tested badly: users didn't trust a list that reordered itself while they were still typing.
 
 <FigurePair
   items={[
-    { src: "/work/hiibo-ai-chat/explore-1.svg", alt: "Rejected direction: reordering dropdown", width: 900, height: 700, caption: "V1 — reordering dropdown, rejected" },
-    { src: "/work/hiibo-ai-chat/explore-2.svg", alt: "Shipped direction: auto-routed by default with a visible override", width: 900, height: 700, caption: "V3 — auto-routed default, shipped" },
+    { src: "/work/hiibo-ai-chat/explore-1.svg", alt: "Rejected direction: reordering dropdown", width: 900, height: 700, caption: "V1: reordering dropdown, rejected" },
+    { src: "/work/hiibo-ai-chat/explore-2.svg", alt: "Shipped direction: auto-routed by default with a visible override", width: 900, height: 700, caption: "V3: auto-routed default, shipped" },
   ]}
 />
 
-The second direction removed the picker from the default flow entirely and surfaced it as a secondary control — visible, but not blocking. That tested well with new users and badly with the power users we'd interviewed early on, who felt like control had been taken away without their consent. The fix wasn't a design change, it was a sequencing one: auto-route by default, but show which model answered, inline, every time — so the control was always visible even when it wasn't the first decision.
+The second direction removed the picker from the default flow entirely and surfaced it as a secondary control: visible, but not blocking. That tested well with new users and badly with the power users we'd interviewed early on, who felt like control had been taken away without their consent. The fix wasn't a design change, it was a sequencing one: auto-route by default, but show which model answered, inline, every time, so the control was always visible even when it wasn't the first decision.
 
 ## Solution
 
@@ -80,11 +80,11 @@ The second direction removed the picker from the default flow entirely and surfa
   notes={[
     { title: "Model attribution, not model selection", body: "Every response is tagged with the model that generated it after the fact, not chosen before. This kept the decision reversible instead of upfront." },
     { title: "Override lives one click away, always", body: "Power users can pin a model per-conversation from the same attribution tag. It's the same control as before, just relocated to the moment it's actually needed." },
-    { title: "Cost stayed visible to admins only", body: "Routing economics are a business concern, not a user one — we moved cost/latency tradeoffs into an admin console instead of exposing them per-message." },
+    { title: "Cost stayed visible to admins only", body: "Routing economics are a business concern, not a user one. We moved cost/latency tradeoffs into an admin console instead of exposing them per-message." },
   ]}
 />
 
-The interaction we shipped: type your question, get an answer, see which model answered in small type beneath it. If you want a different model, you say so — after you've seen the first result, not before. That single sequencing change is what the twelve-model dropdown should have been from the start.
+The interaction we shipped: type your question, get an answer, see which model answered in small type beneath it. If you want a different model, you say so, after you've seen the first result, not before. That single sequencing change is what the twelve-model dropdown should have been from the start.
 
 ## Outcomes
 
@@ -96,10 +96,10 @@ The interaction we shipped: type your question, get an answer, see which model a
   ]}
 />
 
-Time-to-first-answer dropped because we removed a decision, not because we made the decision screen faster. Weekly active teams grew fastest in the segment we'd designed against — ops and support leads who'd never touched a model picker in their lives and now didn't have to.
+Time-to-first-answer dropped because we removed a decision, not because we made the decision screen faster. Weekly active teams grew fastest in the segment we'd designed against: ops and support leads who'd never touched a model picker in their lives and now didn't have to.
 
 ## Reflection
 
-If I did this again, I'd run the card sort before writing a single wireframe instead of after the first round of exploration — I spent two weeks on the reordering-dropdown direction that the research would have ruled out immediately. I still think it was the right instinct to distrust "add better tooltips" as a fix, but I got there by intuition first and evidence second, and the evidence should have come first.
+If I did this again, I'd run the card sort before writing a single wireframe instead of after the first round of exploration. I spent two weeks on the reordering-dropdown direction that the research would have ruled out immediately. I still think it was the right instinct to distrust "add better tooltips" as a fix, but I got there by intuition first and evidence second, and the evidence should have come first.
 
 I'd also push harder, earlier, on separating the business's routing economics from the interaction design. The two got tangled for the first month of the project, and untangling them was what actually unlocked the solution.

@@ -22,7 +22,7 @@ export function DesignBuild() {
             <Reveal>
               <h2 className="max-w-[14ch] text-display-m text-ink">{preventOrphans("Design decides.")}</h2>
               <p className="mt-6 max-w-[42ch] text-body-l text-graphite">
-                Most of what I do is still design in the traditional sense — research, information
+                Most of what I do is still design in the traditional sense: research, information
                 architecture, interaction, visual systems. I sit in on the calls, shadow the users,
                 argue for the scope that the evidence actually supports.
               </p>
@@ -41,14 +41,14 @@ export function DesignBuild() {
             <Reveal index={1}>
               <h2 className="max-w-[14ch] text-display-m text-ink">{preventOrphans("Code closes the gap.")}</h2>
               <p className="mt-6 max-w-[46ch] text-body-l text-graphite">
-                I write the production front end myself — React, Next.js, the same design tokens
+                I write the production front end myself: React, Next.js, the same design tokens
                 from the same file. Nothing gets lost between a mockup and what the user actually
                 receives, because there&rsquo;s no handoff for it to get lost in.
               </p>
               <p className="mt-6 max-w-[46ch] text-body text-graphite">
                 It also changes what I&rsquo;m willing to propose. I&rsquo;ve felt the cost of my own
                 decisions in a codebase, which makes me more honest about which ones are actually
-                worth the engineering time — and faster at defending the ones that are.
+                worth the engineering time, and faster at defending the ones that are.
               </p>
             </Reveal>
           </div>

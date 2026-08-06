@@ -35,7 +35,7 @@ export function AboutTeaser() {
               </MonoLabel>
               <p className="max-w-[56ch] text-body-l text-graphite">
                 I grew up in Karachi, trained and built my career in Islamabad, and now design
-                and build product for teams in the US — mostly healthcare, AI, and SaaS,
+                and build product for teams in the US, mostly healthcare, AI, and SaaS,
                 because that&rsquo;s where the problems have gotten specific enough to be interesting.
               </p>
               <div className="mt-8">

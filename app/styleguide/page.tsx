@@ -52,7 +52,7 @@ export default function StyleguidePage() {
             </MonoLabel>
             <h1 className="max-w-[14ch] text-display-xl text-ink">Styleguide</h1>
             <p className="mt-8 max-w-[60ch] text-body-l text-graphite">
-              Every token, type step, and primitive this site is built from — inspectable
+              Every token, type step, and primitive this site is built from, inspectable
               the way Figma inspects a frame.
             </p>
           </Reveal>
@@ -65,7 +65,7 @@ export default function StyleguidePage() {
         <Container>
           <Reveal>
             <MonoLabel as="p" className="mb-8">
-              02 — Colour
+              02 · Colour
             </MonoLabel>
           </Reveal>
           <Grid>
@@ -84,7 +84,7 @@ export default function StyleguidePage() {
           </Grid>
           <Reveal className="mt-8">
             <p className="max-w-[60ch] text-body-s text-ash">
-              Signal Ochre is disciplined to under 2% of any viewport — hover underlines,
+              Signal Ochre is disciplined to under 2% of any viewport: hover underlines,
               focus rings, the availability dot, active nav state, and key-insight markers only.
             </p>
           </Reveal>
@@ -97,7 +97,7 @@ export default function StyleguidePage() {
         <Container>
           <Reveal>
             <MonoLabel as="p" className="mb-8">
-              03 — Type scale
+              03 · Type scale
             </MonoLabel>
           </Reveal>
           <div className="space-y-12">
@@ -120,7 +120,7 @@ export default function StyleguidePage() {
         <Container>
           <Reveal>
             <MonoLabel as="p" className="mb-8">
-              04 — Spacing (4px base)
+              04 · Spacing (4px base)
             </MonoLabel>
           </Reveal>
           <div className="space-y-3">
@@ -140,7 +140,7 @@ export default function StyleguidePage() {
         <Container>
           <Reveal>
             <MonoLabel as="p" className="mb-8">
-              05 — Radius
+              05 · Radius
             </MonoLabel>
           </Reveal>
           <Reveal className="flex flex-wrap items-center gap-8">
@@ -162,12 +162,12 @@ export default function StyleguidePage() {
         <Container>
           <Reveal>
             <MonoLabel as="p" className="mb-8">
-              06 — Primitives
+              06 · Primitives
             </MonoLabel>
           </Reveal>
 
           <Reveal className="mb-12">
-            <MonoLabel className="mb-4 block">Grid — 12 col, 24/32 gutter</MonoLabel>
+            <MonoLabel className="mb-4 block">Grid · 12 col, 24/32 gutter</MonoLabel>
             <Grid>
               {Array.from({ length: 12 }).map((_, i) => (
                 <div key={i} className="col-span-1 h-16 bg-fog" />
@@ -186,7 +186,7 @@ export default function StyleguidePage() {
           </Reveal>
 
           <Reveal>
-            <MonoLabel className="mb-4 block">Reveal — scroll back up and down to replay</MonoLabel>
+            <MonoLabel className="mb-4 block">Reveal · scroll back up and down to replay</MonoLabel>
             <p className="max-w-[60ch] text-body text-graphite">
               Opacity 0→1, translateY 16px→0, 600ms, 60ms stagger between siblings,
               single easing curve everywhere. Reduces to an instant opacity change under

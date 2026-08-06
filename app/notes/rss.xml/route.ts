@@ -35,7 +35,7 @@ export async function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>${escapeXml(SITE_CONFIG.name)} — Notes</title>
+    <title>${escapeXml(SITE_CONFIG.name)}: Notes</title>
     <link>${SITE_CONFIG.url}/notes</link>
     <atom:link href="${SITE_CONFIG.url}/notes/rss.xml" rel="self" type="application/rss+xml" />
     <description>Short, opinionated notes on design and engineering from ${escapeXml(SITE_CONFIG.name)}.</description>

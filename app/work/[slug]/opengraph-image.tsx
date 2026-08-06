@@ -1,7 +1,7 @@
 import { renderOgImage, OG_SIZE } from "@/lib/og";
 import { getAllWork, getWorkBySlug } from "@/lib/content/work";
 
-export const alt = "Case study — Arqum Usmani";
+export const alt = "Case study by Arqum Usmani";
 export const size = OG_SIZE;
 export const contentType = "image/png";
 

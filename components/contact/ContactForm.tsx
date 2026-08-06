@@ -140,10 +140,10 @@ export function ContactForm() {
           {isSubmitting ? "Sending…" : "Send message"}
         </button>
         {status === "success" && (
-          <p className="text-body-s text-graphite">Sent — I&rsquo;ll reply within two business days.</p>
+          <p className="text-body-s text-graphite">Sent. I&rsquo;ll reply within two business days.</p>
         )}
         {status === "error" && (
-          <p className="text-body-s text-signal">Something went wrong — email me directly instead.</p>
+          <p className="text-body-s text-signal">Something went wrong. Email me directly instead.</p>
         )}
       </div>
     </form>

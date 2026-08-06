@@ -1,6 +1,6 @@
 import { renderOgImage, OG_SIZE } from "@/lib/og";
 
-export const alt = "Notes — Arqum Usmani";
+export const alt = "Notes by Arqum Usmani";
 export const size = OG_SIZE;
 export const contentType = "image/png";
 

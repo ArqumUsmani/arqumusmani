@@ -1,6 +1,6 @@
 ---
 slug: "equinox-emr"
-title: "A confidential EMR — rebuilding charting for clinicians who'd stopped trusting the software"
+title: "A confidential EMR: rebuilding charting for clinicians who'd stopped trusting the software"
 thesis: "I rebuilt the charting workflow of a hospital EMR so clinicians could finish a note in the room instead of catching up on documentation after their shift ended."
 client: "Confidential Healthcare Platform"
 confidential: true
@@ -27,15 +27,15 @@ order: 2
 
 ## Context
 
-This was a mid-sized hospital system's EMR, built on a fifteen-year-old charting core that had been patched by four different vendors. Clinicians were required to use it. They hated using it. The system's own adoption data showed nurses and physicians finishing thirty to forty percent of their documentation after their shift ended, at home, unpaid — a pattern the industry has a name for: pajama time.
+This was a mid-sized hospital system's EMR, built on a fifteen-year-old charting core that had been patched by four different vendors. Clinicians were required to use it. They hated using it. The system's own adoption data showed nurses and physicians finishing thirty to forty percent of their documentation after their shift ended, at home, unpaid, a pattern the industry has a name for: pajama time.
 
 I joined a small internal team tasked with rebuilding the charting module without touching the underlying data model, which fed billing, compliance, and three other downstream systems we weren't allowed to break.
 
 ## Problem
 
-Writing a single nursing note took an average of 94 clicks. Most of those clicks weren't documentation — they were navigation: expanding sections, dismissing modals, re-finding fields that had moved because the form was conditionally rendered based on unrelated inputs elsewhere on the page. Clinicians weren't slow at charting. The interface was slow at getting out of their way.
+Writing a single nursing note took an average of 94 clicks. Most of those clicks weren't documentation. They were navigation: expanding sections, dismissing modals, re-finding fields that had moved because the form was conditionally rendered based on unrelated inputs elsewhere on the page. Clinicians weren't slow at charting. The interface was slow at getting out of their way.
 
-The sharpest evidence came from shadowing, not analytics: I watched an ICU nurse chart the same vital signs twice in one shift because the auto-save silently failed on a poor wifi connection near one specific bed, and the interface gave no indication anything had gone wrong until she checked the record twenty minutes later.
+The sharpest evidence came from shadowing, not analytics. I watched an ICU nurse chart the same vital signs twice in one shift because the auto-save silently failed on a poor wifi connection near one specific bed, and the interface gave no indication anything had gone wrong until she checked the record twenty minutes later.
 
 ## Constraints
 
@@ -48,33 +48,33 @@ The data model was locked. I was redesigning the interface layer on top of a sch
 </Callout>
 
 <Callout label="Organisational">
-Nursing, physician, and pharmacy stakeholders each had veto power over changes to their part of the chart, and their incentives didn't always agree — a layout that saved a nurse four clicks sometimes cost a physician one extra scroll. Every decision needed a tie-breaker, and there wasn't always a clean one.
+Nursing, physician, and pharmacy stakeholders each had veto power over changes to their part of the chart, and their incentives didn't always agree: a layout that saved a nurse four clicks sometimes cost a physician one extra scroll. Every decision needed a tie-breaker, and there wasn't always a clean one.
 </Callout>
 
 ## Research
 
-I shadowed eleven clinicians across three shifts — day, night, and a weekend — because charting behavior under time pressure looked nothing like charting behavior in a scheduled usability session. I also pulled six months of session recordings filtered for sessions longer than the 95th percentile, to find where people were actually getting stuck versus where they said they got stuck.
+I shadowed eleven clinicians across three shifts (day, night, and a weekend) because charting behavior under time pressure looked nothing like charting behavior in a scheduled usability session. I also pulled six months of session recordings filtered for sessions longer than the 95th percentile, to find where people were actually getting stuck versus where they said they got stuck.
 
-The two didn't match. Clinicians self-reported that "everything" was slow. The recordings showed the actual time sink concentrated in three specific screens: medication reconciliation, the vitals flowsheet, and discharge instructions — together accounting for less than a fifth of the module but over half of total charting time.
+The two didn't match. Clinicians self-reported that "everything" was slow. The recordings showed the actual time sink concentrated in three specific screens: medication reconciliation, the vitals flowsheet, and discharge instructions, together accounting for less than a fifth of the module but over half of total charting time.
 
 <KeyInsight>
-Clinicians didn't need a faster EMR. They needed three specific screens fixed and permission to stop worrying about the rest — treating this as a uniform redesign would have spent a year of engineering time on parts of the product that were never actually the problem.
+Clinicians didn't need a faster EMR. They needed three specific screens fixed and permission to stop worrying about the rest. Treating this as a uniform redesign would have spent a year of engineering time on parts of the product that were never actually the problem.
 </KeyInsight>
 
 ## Explorations
 
-Nursing, physician, and pharmacy leads didn't agree on what "fixed" meant here, and I didn't resolve that by picking a side — I resolved it by changing what we were arguing about.
+Nursing, physician, and pharmacy leads didn't agree on what "fixed" meant here, and I didn't resolve that by picking a side. I resolved it by changing what we were arguing about.
 
-The nursing lead wanted the charting module rebuilt as a single continuous form, no tabs, on the theory that tab-switching was the main source of lost clicks. The physician group wanted the tabs kept exactly as they were and just wanted the vitals flowsheet faster. Both were reasoning from instinct, and both had good, hard-won instincts — but they were arguing about the *whole module*, and the session-recording data said the module wasn't the problem. Three specific screens were.
+The nursing lead wanted the charting module rebuilt as a single continuous form, no tabs, on the theory that tab-switching was the main source of lost clicks. The physician group wanted the tabs kept exactly as they were and just wanted the vitals flowsheet faster. Both were reasoning from instinct, and both had good, hard-won instincts, but they were arguing about the *whole module*, and the session-recording data said the module wasn't the problem. Three specific screens were.
 
 <FigurePair
   items={[
-    { src: "/work/equinox-emr/explore-1.svg", alt: "Unified charting canvas proposal, tested with clinical staff and rejected", width: 900, height: 700, caption: "Unified canvas — tested, rejected by clinical review" },
-    { src: "/work/equinox-emr/explore-2.svg", alt: "Targeted rebuild of the three highest-friction screens, tab structure preserved", width: 900, height: 700, caption: "Targeted rebuild — three screens, shipped" },
+    { src: "/work/equinox-emr/explore-1.svg", alt: "Unified charting canvas proposal, tested with clinical staff and rejected", width: 900, height: 700, caption: "Unified canvas: tested, rejected by clinical review" },
+    { src: "/work/equinox-emr/explore-2.svg", alt: "Targeted rebuild of the three highest-friction screens, tab structure preserved", width: 900, height: 700, caption: "Targeted rebuild: three screens, shipped" },
   ]}
 />
 
-Once I brought the click-count-corrected-for-error-time data into the room, the argument stopped being "your instinct vs. mine" and became "here's what's actually costing time, want to fix that instead." The unified-canvas idea didn't survive clinical review — nurses used the tab structure as a mental checklist for what still needed doing mid-shift, and collapsing it removed a safety behavior, not just a UI pattern. What did survive: keep the tabs, rebuild the three screens the data actually implicated, leave the rest alone. Telling stakeholders their screen wasn't getting touched this year was a harder conversation than the redesign itself.
+Once I brought the click-count-corrected-for-error-time data into the room, the argument stopped being "your instinct vs. mine" and became "here's what's actually costing time, want to fix that instead." The unified-canvas idea didn't survive clinical review: nurses used the tab structure as a mental checklist for what still needed doing mid-shift, and collapsing it removed a safety behavior, not just a UI pattern. What did survive: keep the tabs, rebuild the three screens the data actually implicated, leave the rest alone. Telling stakeholders their screen wasn't getting touched this year was a harder conversation than the redesign itself.
 
 ## Solution
 
@@ -84,9 +84,9 @@ Once I brought the click-count-corrected-for-error-time data into the room, the 
   width={1400}
   height={1000}
   notes={[
-    { title: "Save state made visible, always", body: "The silent auto-save failure I watched happen in the ICU became a persistent, always-visible save indicator with an explicit retry — not a toast that could be missed mid-task." },
+    { title: "Save state made visible, always", body: "The silent auto-save failure I watched happen in the ICU became a persistent, always-visible save indicator with an explicit retry, not a toast that could be missed mid-task." },
     { title: "Flowsheet defaults followed unit protocol, not the schema", body: "The vitals flowsheet's field order had been following the database schema for a decade. We reordered it to match each unit's actual charting sequence, configured per care area instead of hardcoded once." },
-    { title: "Medication reconciliation became a diff, not a form", body: "Instead of re-entering a patient's full medication list, clinicians now confirmed a pre-populated diff against the last known list — the highest-click screen in the module became closer to a review than a re-transcription." },
+    { title: "Medication reconciliation became a diff, not a form", body: "Instead of re-entering a patient's full medication list, clinicians now confirmed a pre-populated diff against the last known list. The highest-click screen in the module became closer to a review than a re-transcription." },
   ]}
 />
 
@@ -106,6 +106,6 @@ None of these were novel interaction patterns. The work was almost entirely abou
 
 ## Reflection
 
-I'd push for the scoping conversation — "fix three screens, not the whole module" — to happen in week one instead of month four. We spent real time trying to build stakeholder consensus around a full redesign before the session-recording data existed to make the narrower scope defensible. The data would have won that argument faster than I did.
+I'd push for the scoping conversation ("fix three screens, not the whole module") to happen in week one instead of month four. We spent real time trying to build stakeholder consensus around a full redesign before the session-recording data existed to make the narrower scope defensible. The data would have won that argument faster than I did.
 
-I'd also involve pharmacy earlier. They were the stakeholder group I engaged latest, mostly because the medication reconciliation screen wasn't originally in the top three by click count — it moved up once we corrected for error-correction time, which pharmacy staff had been quietly absorbing and nobody had measured until we asked.
+I'd also involve pharmacy earlier. They were the stakeholder group I engaged latest, mostly because the medication reconciliation screen wasn't originally in the top three by click count. It moved up once we corrected for error-correction time, which pharmacy staff had been quietly absorbing and nobody had measured until we asked.

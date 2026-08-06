@@ -109,7 +109,7 @@ export default async function WorkCaseStudyPage({
                 <div key={src} className="border border-mist bg-fog">
                   <Image
                     src={src}
-                    alt={`${frontmatter.title} — gallery image ${i + 1}`}
+                    alt={`${frontmatter.title}: gallery image ${i + 1}`}
                     width={1600}
                     height={1000}
                     sizes="(max-width: 768px) 100vw, 50vw"

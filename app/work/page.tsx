@@ -10,7 +10,7 @@ import { preventOrphans } from "@/lib/typography";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Case studies in healthcare, AI, and SaaS product design — Arqum Usmani, Lead Product Designer and UI/UX Engineer.",
+    "Case studies in healthcare, AI, and SaaS product design, by Arqum Usmani, Lead Product Designer and UI/UX Engineer.",
   alternates: {
     canonical: "/work",
   },
@@ -43,7 +43,7 @@ export default async function WorkPage() {
           <h1 className="max-w-[16ch] text-display-xl text-ink">{preventOrphans("Selected case studies.")}</h1>
           <p className="mt-8 max-w-[55ch] text-body-l text-graphite">
             Four projects across healthcare, AI, and SaaS. Each one written as an argument, not a
-            gallery — the problem, the constraints, and what I&rsquo;d change.
+            gallery: the problem, the constraints, and what I&rsquo;d change.
           </p>
         </Reveal>
 

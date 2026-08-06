@@ -14,7 +14,7 @@ import { personJsonLd } from "@/lib/json-ld";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Arqum Usmani — Lead Product Designer and UI/UX Engineer. Design philosophy, career timeline, and tools.",
+    "Arqum Usmani, Lead Product Designer and UI/UX Engineer. Design philosophy, career timeline, and tools.",
   alternates: {
     canonical: "/about",
   },
@@ -22,27 +22,27 @@ export const metadata: Metadata = {
 
 const TIMELINE = [
   {
-    period: "2024 — Present",
+    period: "2024–Present",
     org: "Oak Street Technologies",
     role: "Lead Product Designer",
   },
   {
-    period: "2023 — 2024",
+    period: "2023–2024",
     org: "Hiibo",
     role: "Lead Designer",
   },
   {
-    period: "2021 — 2023",
+    period: "2021–2023",
     org: "Stella Technology",
     role: "UI/UX Engineer",
   },
   {
-    period: "2019 — 2021",
+    period: "2019–2021",
     org: "CloudFruit",
     role: "Product Designer",
   },
   {
-    period: "2017 — 2019",
+    period: "2017–2019",
     org: "Freelance",
     role: "Design & front-end, Karachi",
   },
@@ -72,14 +72,14 @@ export default function AboutPage() {
               </Reveal>
               <Reveal inView={false} index={1} className="mt-10">
                 <p className="max-w-[60ch] text-body-l text-graphite">
-                  Most product problems get solved twice — once for the version stakeholders
+                  Most product problems get solved twice: once for the version stakeholders
                   describe, and once for the version the evidence actually supports. I try to
                   spend as little time as possible on the first one. That&rsquo;s most of what
                   &ldquo;opinionated&rdquo; means when I say it about my own work.
                 </p>
                 <p className="mt-6 max-w-[60ch] text-body text-graphite">
                   I care about healthcare, AI, and SaaS specifically because they&rsquo;re the domains
-                  where the constraints are real — regulatory, technical, organisational — and a
+                  where the constraints are real (regulatory, technical, organisational) and a
                   design that ignores them doesn&rsquo;t just look wrong, it doesn&rsquo;t ship.
                 </p>
                 <p className="mt-6 max-w-[60ch] text-body text-graphite">
