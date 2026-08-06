@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
-/* Class-based dark mode: .dark on <html>. No toggle wired yet — tokens are ready. */
+/* Class-based dark mode: .dark on <html>, set by an inline no-flash script
+   (see app/layout.tsx) reading the `theme` cookie, falling back to system
+   preference. Toggled via components/layout/ThemeToggle.tsx. */
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
@@ -62,21 +64,43 @@
   /* Container / grid */
   --container-page: 1440px;
 
-  /* Motion */
+  /* Motion — one curve, everywhere. Overriding Tailwind's default timing
+     function means every unqualified transition-* utility (transition-colors
+     duration-300, etc.) resolves to the signature curve automatically,
+     instead of silently falling back to Tailwind's cubic-bezier(0.4,0,0.2,1). */
   --ease-signature: cubic-bezier(0.16, 1, 0.3, 1);
+  --default-transition-timing-function: var(--ease-signature);
 }
 
-/* Dark mode: background/text roles invert onto the same paper/ink tokens
-   so existing bg-paper / text-ink usage flips automatically. */
+/* Dark mode: every role inverts onto the same tokens so existing
+   bg-paper / text-graphite / border-mist usage flips automatically.
+   Contrast checked against paper (#0a0a0a): ink 17.7:1, graphite 9.9:1,
+   ash 5.7:1, signal 6.0:1 — all pass AA for text at their used sizes.
+   mist/fog are decorative (borders, fills) and intentionally match the
+   light theme's subtle ~1.1–1.7:1 ratios, not text-contrast targets. */
 .dark {
   --color-paper: #0a0a0a;
   --color-ink: #f2f2ef;
+  --color-graphite: #b8b8b3;
+  --color-ash: #8a8a85;
+  --color-mist: #3a3a37;
+  --color-fog: #161614;
   --color-signal: #d9722f;
 }
 
 @layer base {
   * {
     border-color: var(--color-mist);
+  }
+
+  /* Optical margin alignment: at display size, rounded/side-bearing-heavy
+     glyphs (O, C, S, W…) read as sitting slightly right of a container's
+     true edge next to flush stems (I, H, L). A small universal pull left
+     re-aligns the perceived edge without needing per-glyph correction. */
+  .text-display-xl,
+  .text-display-l,
+  .text-display-m {
+    margin-left: -0.02em;
   }
 
   html {
@@ -106,5 +130,42 @@
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+  }
+}
+
+/* Page transition (app/template.tsx) — 200ms fade out, 400ms fade in + 12px
+   rise. Transform + opacity only, so there is nothing to reflow: no layout
+   shift. Unsupported browsers (no View Transitions API) just swap instantly. */
+::view-transition-old(.page-exit) {
+  animation: 200ms var(--ease-signature) both page-exit;
+}
+
+::view-transition-new(.page-enter) {
+  animation: 400ms var(--ease-signature) both page-enter;
+}
+
+@keyframes page-exit {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
   }
 }

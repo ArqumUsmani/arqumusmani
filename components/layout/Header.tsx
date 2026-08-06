@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Container } from "@/components/primitives/Container";
 import { AvailabilityPill } from "@/components/layout/AvailabilityPill";
 import { MobileMenu } from "@/components/layout/MobileMenu";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 
 const NAV_ITEMS = [
   { label: "Work", href: "/work" },
@@ -48,7 +49,8 @@ export function Header() {
           })}
         </nav>
 
-        <div className="hidden md:block">
+        <div className="hidden items-center gap-6 md:flex">
+          <ThemeToggle />
           <AvailabilityPill />
         </div>
 

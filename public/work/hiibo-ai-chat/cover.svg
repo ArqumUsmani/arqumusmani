@@ -1,0 +1,14 @@
+<svg width="1920" height="1200" viewBox="0 0 1920 1200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hiibo — AI Chat Platform">
+  <rect width="1920" height="1200" fill="#3d3d3b"/>
+  <line x1="320" y1="0" x2="320" y2="1200" stroke="#c9c9c4" stroke-width="1" opacity="0.25"/>
+  <line x1="640" y1="0" x2="640" y2="1200" stroke="#c9c9c4" stroke-width="1" opacity="0.25"/>
+  <line x1="960" y1="0" x2="960" y2="1200" stroke="#c9c9c4" stroke-width="1" opacity="0.25"/>
+  <line x1="1280" y1="0" x2="1280" y2="1200" stroke="#c9c9c4" stroke-width="1" opacity="0.25"/>
+  <line x1="1600" y1="0" x2="1600" y2="1200" stroke="#c9c9c4" stroke-width="1" opacity="0.25"/>
+  <line x1="0" y1="300" x2="1920" y2="300" stroke="#c9c9c4" stroke-width="1" opacity="0.25"/>
+  <line x1="0" y1="600" x2="1920" y2="600" stroke="#c9c9c4" stroke-width="1" opacity="0.25"/>
+  <line x1="0" y1="900" x2="1920" y2="900" stroke="#c9c9c4" stroke-width="1" opacity="0.25"/>
+  <rect x="0" y="0" width="11.52" height="1200" fill="#b4531f"/>
+  <text x="96" y="1032" font-family="Helvetica, Arial, sans-serif" font-size="61" fill="#fafaf8" font-weight="500" letter-spacing="-0.02em">Hiibo — AI Chat Platform</text>
+  <text x="96" y="1069" font-family="ui-monospace, SFMono-Regular, monospace" font-size="23" fill="#c9c9c4" letter-spacing="0.08em">COVER · 1920×1200</text>
+</svg>

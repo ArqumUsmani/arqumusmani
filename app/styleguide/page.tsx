@@ -10,6 +10,10 @@ import { ArrowLink } from "@/components/primitives/ArrowLink";
 export const metadata: Metadata = {
   title: "Styleguide",
   description: "Design tokens, type scale, and primitives for the Arqum Usmani portfolio system.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 const COLORS = [
@@ -42,7 +46,7 @@ export default function StyleguidePage() {
         className="pt-16 md:pt-24"
       >
         <Container>
-          <Reveal>
+          <Reveal inView={false}>
             <MonoLabel as="p" className="mb-6">
               Design system
             </MonoLabel>

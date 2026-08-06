@@ -1,0 +1,103 @@
+---
+slug: "cloudbloom"
+title: "CloudBloom — product and landing for a DevOps SaaS that undersold itself"
+thesis: "I redesigned CloudBloom's product and marketing site so the brand finally looked as technical as the tool actually was."
+client: "CloudBloom"
+confidential: false
+role: "Product Designer"
+team: "1 designer (me), 3 engineers"
+timeline: "5 months · 2023"
+platform: "Web app + marketing site"
+domain: "SaaS"
+year: 2023
+cover: "/work/cloudbloom/cover.svg"
+gallery:
+  - "/work/cloudbloom/gallery-1.svg"
+  - "/work/cloudbloom/gallery-2.svg"
+outcomes:
+  - value: "+34%"
+    label: "trial-to-paid conversion"
+  - value: "−1.8s"
+    label: "time to first dashboard render"
+  - value: "19"
+    label: "components shipped to the design system"
+featured: true
+order: 3
+---
+
+## Context
+
+CloudBloom is infrastructure monitoring for teams too small to justify Datadog's pricing. The product was solid — three founding engineers had built genuinely good anomaly detection — but the marketing site and the product UI looked like two different companies had built them, and neither looked like something a staff engineer would trust with production alerts.
+
+I came in after their seed round with a mandate to fix that mismatch before a Series A push.
+
+## Problem
+
+Trial signups were healthy. Trial-to-paid conversion wasn't. Exit interviews with churned trials kept surfacing a version of the same sentence: "it looked like a student project." Nobody said the product didn't work. They said it didn't look like something they could put their name behind internally when recommending a tool to their team.
+
+The marketing site oversold with generic SaaS stock photography and gradient blobs, while the actual product — dense tables, real-time graphs, an alert configuration UI with genuine depth — undersold itself with default component styling and no visual hierarchy. The two were actively working against each other.
+
+## Constraints
+
+<Callout label="Technical">
+Three engineers, no dedicated frontend hire, and a hard deadline tied to the Series A timeline. Any design system I introduced had to be simple enough for backend-leaning engineers to implement correctly without a design review on every PR.
+</Callout>
+
+<Callout label="Organisational">
+The founders were proud of the marketing site's existing illustration work, which a friend had done for free pre-seed. Replacing it was a harder internal conversation than the actual design problem.
+</Callout>
+
+## Research
+
+I ran a competitive teardown of eleven monitoring tools their prospects also trialed, scoring each on a simple axis: does the visual language signal "built by people who run production systems" or "built by people who sell to people who run production systems." The tools that won that signal — the ones engineers actually chose — leaned dense, monospace-forward, and quiet on color. The tools that lost it leaned illustrative and bright.
+
+I also sat in on four sales calls. Prospects asked to see the product within the first five minutes, every time, and judged it fast — the marketing site's job wasn't to convince anyone, it was to not get in the way before the product could.
+
+<KeyInsight>
+The marketing site's real job was to get out of the way fast enough for the product to make its own case — every hour spent polishing hero illustrations was an hour not spent shortening the path to the live dashboard.
+</KeyInsight>
+
+## Explorations
+
+I didn't want to spend a month finding out the safe option was wrong, so I ran two live variants past the same eleven prospects from the teardown instead of iterating on one. Both kept the founders' illustration system — that fight wasn't worth having yet without evidence — but one just tightened the palette, and the other swapped the whole hero for a sped-up, interactive embed of the real dashboard.
+
+<FigurePair
+  items={[
+    { src: "/work/cloudbloom/explore-1.svg", alt: "Palette-tightened illustration hero, tested against prospects", width: 900, height: 700, caption: "Tightened illustration — tested, sentiment unchanged" },
+    { src: "/work/cloudbloom/explore-2.svg", alt: "Live product embed replacing the hero illustration, tested against prospects", width: 900, height: 700, caption: "Live product embed — tested, shipped" },
+  ]}
+/>
+
+The tightened palette tested fine on every visual-design metric I asked about, and moved nothing that mattered: prospects still called it "marketing-y" in the follow-up calls, word for word what churned users had said. The embed was a heavier engineering lift and a harder conversation with the founders, since it meant retiring illustration work they were personally attached to — but it was the only version where evaluators stopped describing the site like marketing at all. Running both at once instead of in sequence is what made that founder conversation possible in week two instead of month two.
+
+## Solution
+
+<Annotated
+  src="/work/cloudbloom/solution.svg"
+  alt="CloudBloom dashboard redesign, dense data-forward layout"
+  width={1400}
+  height={1000}
+  notes={[
+    { title: "Monospace for anything that was ever going to be copy-pasted", body: "Metric values, resource IDs, and alert thresholds moved to monospace type — a small change that made the product feel built for people who live in terminals." },
+    { title: "Marketing site adopted the product's own visual language", body: "Instead of a separate marketing design system, the site now reuses the product's chart components and type scale directly, so the transition from site to app trial has zero visual discontinuity." },
+    { title: "Component library built for a 3-person eng team", body: "19 components shipped with strict prop APIs and no visual-design decisions left open at implementation time — the goal was that any engineer could compose a correct screen without a design review." },
+  ]}
+/>
+
+## Outcomes
+
+<Metrics
+  items={[
+    { value: "+34%", label: "trial-to-paid conversion" },
+    { value: "−1.8s", label: "time to first dashboard render" },
+    { value: "19", label: "components shipped to the design system" },
+  ]}
+/>
+
+The render-time improvement wasn't originally a design goal — it fell out of replacing a heavy illustration-and-animation-loaded hero with the lighter live dashboard embed, and it turned out to matter to the same technical audience the visual redesign was targeting.
+
+## Reflection
+
+I'd fight the palette-and-illustration-tightening detour harder, earlier. It was the safe, low-conflict option, and it cost most of month one before the sales-call research made clear it wasn't going to move the number that mattered. I knew "marketing-y" was the real complaint from the first churn interview; I just didn't trust that signal enough to skip straight to the harder recommendation.
+
+I'd also get an engineer embedded in the design system work from day one instead of week six. The component API decisions I made alone in the first month needed two rounds of rework once implementation started, and a lot of that rework would have surfaced in a single working session.

@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { SpecRailValues } from "@/components/primitives/Section";
 
+const EASE_SIGNATURE = [0.16, 1, 0.3, 1] as const;
+
 function readCookie(name: string): string | null {
   const match = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
   return match ? decodeURIComponent(match[1]) : null;
@@ -27,7 +29,7 @@ function setCookie(name: string, value: string) {
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex gap-3">
-      <span className="w-10 shrink-0 text-ash/80">{label}</span>
+      <span className="w-10 shrink-0">{label}</span>
       <span>{value}</span>
     </div>
   );
@@ -68,11 +70,12 @@ export function SpecRail() {
 
   return (
     <div
+      aria-hidden="true"
       className="group fixed top-1/2 z-40 hidden -translate-y-1/2 select-none xl:block"
       style={{ right: "clamp(1rem, 2vw, 4rem)" }}
     >
       {visible && (
-        <div className="w-[150px] font-mono text-[10px] leading-relaxed text-ash opacity-55 transition-opacity duration-300 group-hover:opacity-100">
+        <div className="w-[150px] font-mono text-[10px] leading-relaxed text-ash transition-colors duration-300 group-hover:text-ink">
           <AnimatePresence mode="wait">
             {activeSpec && (
               <motion.div
@@ -80,7 +83,7 @@ export function SpecRail() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.3, ease: EASE_SIGNATURE }}
               >
                 <p className="mb-2 whitespace-nowrap">── {activeSpec.index}</p>
                 <div className="space-y-1">
@@ -96,12 +99,13 @@ export function SpecRail() {
 
       <button
         type="button"
+        tabIndex={-1}
         onClick={() => {
           const next = !visible;
           setVisible(next);
           setCookie("spec-rail", next ? "on" : "off");
         }}
-        className={`font-mono text-[10px] uppercase tracking-[0.08em] text-ash opacity-55 transition-opacity duration-300 hover:opacity-100 group-hover:opacity-100 ${visible ? "mt-3" : ""}`}
+        className={`font-mono text-[10px] uppercase tracking-[0.08em] text-ash transition-colors duration-300 hover:text-ink group-hover:text-ink ${visible ? "mt-3" : ""}`}
       >
         {visible ? "Hide spec" : "Spec"}
       </button>
