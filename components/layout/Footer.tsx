@@ -1,0 +1,69 @@
+import { Container } from "@/components/primitives/Container";
+import { Rule } from "@/components/primitives/Rule";
+import { MonoLabel } from "@/components/primitives/MonoLabel";
+
+const SOCIAL_LINKS = [
+  { label: "LinkedIn", href: "#" },
+  { label: "Behance", href: "#" },
+  { label: "Dribbble", href: "#" },
+];
+
+export function Footer() {
+  const year = new Date().getFullYear();
+
+  return (
+    <footer className="border-t border-mist">
+      <Container className="py-24 md:py-40">
+        <MonoLabel as="p" className="mb-6">
+          Availability
+        </MonoLabel>
+        <h2 className="max-w-[16ch] text-display-m text-ink">
+          Let&rsquo;s build something worth shipping.
+        </h2>
+
+        <div className="mt-12 flex flex-col gap-4 sm:flex-row">
+          <a
+            href="mailto:hello@ausmani.com?subject=Full-time%20role"
+            className="inline-flex items-center justify-center rounded-sm bg-ink px-6 py-4 font-mono text-mono-label uppercase text-paper transition-colors duration-300 hover:bg-graphite"
+          >
+            Hire me full-time
+          </a>
+          <a
+            href="mailto:hello@ausmani.com?subject=Project%20inquiry"
+            className="inline-flex items-center justify-center rounded-sm border border-mist px-6 py-4 font-mono text-mono-label uppercase text-ink transition-colors duration-300 hover:border-ink"
+          >
+            Work with me
+          </a>
+        </div>
+
+        <Rule className="my-16" />
+
+        <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
+            <a
+              href="mailto:hello@ausmani.com"
+              className="font-mono text-mono-label uppercase text-graphite transition-colors duration-300 hover:text-ink"
+            >
+              hello@ausmani.com
+            </a>
+            {SOCIAL_LINKS.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noreferrer"
+                className="font-mono text-mono-label uppercase text-graphite transition-colors duration-300 hover:text-ink"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+
+          <p className="font-mono text-mono-label uppercase text-ash">
+            Designed &amp; built by Arqum · {year}
+          </p>
+        </div>
+      </Container>
+    </footer>
+  );
+}

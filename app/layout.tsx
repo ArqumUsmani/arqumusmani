@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Inter_Tight, Geist_Mono } from "next/font/google";
-import { cookies } from "next/headers";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -48,12 +47,9 @@ export const viewport: Viewport = {
   ],
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: LayoutProps<"/">) {
-  const cookieStore = await cookies();
-  const specRailVisible = cookieStore.get("spec-rail")?.value !== "off";
-
   return (
     <html
       lang="en"
@@ -71,7 +67,7 @@ export default async function RootLayout({
           {children}
         </main>
         <Footer />
-        <SpecRail initialVisible={specRailVisible} />
+        <SpecRail />
       </body>
     </html>
   );
