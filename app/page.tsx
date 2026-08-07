@@ -15,12 +15,12 @@ export default function Home() {
   return (
     <>
       <JsonLd data={personJsonLd()} />
-      {/* Height is bounded, not full-viewport: on a short laptop window the hero
-          should still feel substantial, but on a tall external monitor an
-          uncapped 100vh here just stretches into dead space above the fold. */}
+      {/* Header (h-20 / h-24) + hero together fill exactly 100dvh — dvh
+          rather than vh so mobile browser chrome showing/hiding doesn't
+          leave the hero either clipped or oversized. */}
       <Section
         spec={{ index: "01 / HOME", type: "display-xl · 500", grid: "12 col · 32 gutter", space: "160 / 96" }}
-        className="flex min-h-[min(calc(100vh-5rem),46rem)] items-center pt-16 md:min-h-[min(calc(100vh-6rem),52rem)] md:pt-24"
+        className="flex min-h-[calc(100dvh-5rem)] items-center pt-16 md:min-h-[calc(100dvh-6rem)] md:pt-24"
       >
         <Container>
           <Reveal inView={false}>

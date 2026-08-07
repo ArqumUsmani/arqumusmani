@@ -1,7 +1,7 @@
 import { Container } from "@/components/primitives/Container";
 import { Reveal } from "@/components/primitives/Reveal";
 import { MonoLabel } from "@/components/primitives/MonoLabel";
-import BlurText from "@/components/primitives/BlurText";
+import SplitText from "@/components/primitives/SplitText";
 import { Clock } from "@/components/layout/Clock";
 import { preventOrphans } from "@/lib/typography";
 import { SITE_CONFIG } from "@/lib/site-config";
@@ -101,14 +101,20 @@ export function Footer() {
         </Container>
 
         <div className="mt-16 select-none md:mt-24">
-          <BlurText
+          <SplitText
             ariaHidden
             text="Arqum Usmani"
-            animateBy="words"
-            direction="bottom"
-            delay={120}
-            stepDuration={0.5}
-            className="-mb-[0.12em] justify-center px-4 font-sans text-[16vw] font-bold leading-none tracking-tighter text-ink md:-mb-[0.09em] md:text-[13vw]"
+            tag="p"
+            splitType="chars"
+            duration={0.9}
+            delay={22}
+            ease="power3.out"
+            from={{ opacity: 0, y: 40 }}
+            to={{ opacity: 1, y: 0 }}
+            threshold={0.2}
+            rootMargin="-80px"
+            textAlign="center"
+            className="-mb-[0.12em] block w-full px-4 font-sans text-[16vw] font-bold leading-none tracking-tighter text-ink md:-mb-[0.09em] md:text-[13vw]"
           />
         </div>
       </div>

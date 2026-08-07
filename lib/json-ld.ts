@@ -12,7 +12,7 @@ export function personJsonLd() {
     email: `mailto:${SITE_CONFIG.email}`,
     jobTitle: "Lead Product Designer & UI/UX Engineer",
     description: SITE_CONFIG.description,
-    image: `${SITE_CONFIG.url}/about/portrait.svg`,
+    image: `${SITE_CONFIG.url}/about/Side.png`,
     knowsAbout: ["Product Design", "UI/UX Engineering", "Healthcare Software", "AI Products", "SaaS"],
     ...(sameAs.length > 0 ? { sameAs } : {}),
   };
