@@ -5,7 +5,7 @@ import { MonoLabel } from "@/components/primitives/MonoLabel";
 import { HeroHeadline } from "@/components/home/HeroHeadline";
 import { GenerativeField } from "@/components/home/GenerativeField";
 import { SelectedWork } from "@/components/home/SelectedWork";
-import { Proof } from "@/components/home/Proof";
+import { DesignedFor } from "@/components/home/DesignedFor";
 import { DesignBuild } from "@/components/home/DesignBuild";
 import { AboutTeaser } from "@/components/home/AboutTeaser";
 import { JsonLd } from "@/components/JsonLd";
@@ -48,7 +48,7 @@ export default function Home() {
       </Section>
 
       <SelectedWork />
-      <Proof />
+      <DesignedFor />
       <DesignBuild />
       <AboutTeaser />
     </>
