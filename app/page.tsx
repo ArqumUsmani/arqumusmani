@@ -5,6 +5,7 @@ import { MonoLabel } from "@/components/primitives/MonoLabel";
 import { HeroHeadline } from "@/components/home/HeroHeadline";
 import { IntroSequence } from "@/components/home/IntroSequence";
 import { GenerativeField } from "@/components/home/GenerativeField";
+import { Marquee } from "@/components/home/Marquee";
 import { SelectedWork } from "@/components/home/SelectedWork";
 import { DesignedFor } from "@/components/home/DesignedFor";
 import { DesignBuild } from "@/components/home/DesignBuild";
@@ -48,6 +49,8 @@ export default function Home() {
           </Reveal>
         </Container>
       </Section>
+
+      <Marquee />
 
       <SelectedWork />
       <DesignedFor />

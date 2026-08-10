@@ -173,3 +173,18 @@
     animation-delay: 0s !important;
   }
 }
+
+/* Marquee (components/home/Marquee.tsx): a seamless loop needs the track
+   doubled — content can't fractionally wrap, so translating by exactly
+   -50% across two identical copies hides the seam. Speed is fixed, not
+   scroll-driven. Reduced motion is already handled by the blanket
+   animation-duration override in @layer base above; nothing extra needed
+   here. */
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
