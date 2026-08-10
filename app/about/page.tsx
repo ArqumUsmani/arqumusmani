@@ -100,7 +100,7 @@ export default function AboutPage() {
 
             <div className="md:col-span-4">
               <Reveal inView={false} index={1}>
-                <PortraitFrame priority sizes="(max-width: 768px) 100vw, 320px" />
+                <PortraitFrame priority sizes="(max-width: 768px) 100vw, 640px" />
               </Reveal>
             </div>
           </div>

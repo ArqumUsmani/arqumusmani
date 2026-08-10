@@ -32,7 +32,7 @@ export function AboutTeaser() {
           </div>
           <div className="md:col-span-4">
             <Reveal index={1}>
-              <PortraitFrame sizes="(max-width: 768px) 100vw, 280px" className="max-w-[280px]" />
+              <PortraitFrame size="teaser" sizes="(max-width: 768px) 100vw, 460px" />
             </Reveal>
           </div>
         </div>
