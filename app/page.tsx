@@ -3,6 +3,7 @@ import { Section } from "@/components/primitives/Section";
 import { Reveal } from "@/components/primitives/Reveal";
 import { MonoLabel } from "@/components/primitives/MonoLabel";
 import { HeroHeadline } from "@/components/home/HeroHeadline";
+import { IntroSequence } from "@/components/home/IntroSequence";
 import { GenerativeField } from "@/components/home/GenerativeField";
 import { SelectedWork } from "@/components/home/SelectedWork";
 import { DesignedFor } from "@/components/home/DesignedFor";
@@ -16,6 +17,7 @@ export default function Home() {
   return (
     <>
       <JsonLd data={personJsonLd()} />
+      <IntroSequence />
       {/* Header (h-20 / h-24) + hero together fill exactly 100dvh — dvh
           rather than vh so mobile browser chrome showing/hiding doesn't
           leave the hero either clipped or oversized.

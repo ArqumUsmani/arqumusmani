@@ -6,7 +6,12 @@ import { DURATION, EASE_ENTER } from "@/lib/motion";
 
 const LINES = ["I design product experiences", "in healthcare, AI, and SaaS,", "and I build them."];
 
-const SESSION_KEY = "hero-headline-played";
+// Exported so IntroSequence.tsx can read (not write) the same signal —
+// both decide "first visit this session" from one source of truth, without
+// IntroSequence needing to control this component's own timing directly:
+// it already starts animating on mount, IntroSequence's overlay just
+// happens to be covering it for the first ~450ms.
+export const SESSION_KEY = "hero-headline-played";
 
 export function HeroHeadline() {
   const reduceMotion = useReducedMotion();
