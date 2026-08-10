@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   },
 };
 
+const FULL_TIME = CAREER.filter((entry) => entry.commitment === "full-time");
+const PART_TIME = CAREER.filter((entry) => entry.commitment === "part-time");
+
 const DESIGN_TOOLS = ["Figma", "FigJam", "Illustrator", "Principle"];
 const BUILD_TOOLS = ["React", "Next.js", "TypeScript", "Tailwind CSS", "Motion"];
 
@@ -88,7 +91,7 @@ export default function AboutPage() {
             </MonoLabel>
           </Reveal>
           <div>
-            {CAREER.map((entry, i) => (
+            {FULL_TIME.map((entry, i) => (
               <Reveal key={entry.org} index={i}>
                 <div className="grid grid-cols-4 gap-6 border-t border-mist py-6 last:border-b md:grid-cols-12 md:gap-8 md:py-8">
                   <MonoLabel className="col-span-4 self-start text-ash md:col-span-3">
@@ -100,6 +103,25 @@ export default function AboutPage() {
               </Reveal>
             ))}
           </div>
+
+          {/* Part-time work ran concurrently alongside Stella Technology,
+              not after it — a second sequential row would misrepresent it
+              as later, non-overlapping employment. */}
+          {PART_TIME.length > 0 && (
+            <Reveal index={FULL_TIME.length} className="mt-10 border-t border-mist pt-8">
+              <MonoLabel className="text-ash">
+                Also, part-time ({formatCareerPeriod(PART_TIME[0])})
+              </MonoLabel>
+              <ul className="mt-4 space-y-2">
+                {PART_TIME.map((entry) => (
+                  <li key={entry.org} className="text-body text-graphite">
+                    <span className="text-ink">{entry.org}</span>, {entry.role}
+                    {entry.products ? ` (${entry.products.join(", ")})` : ""}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          )}
         </Container>
       </Section>
 
