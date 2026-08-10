@@ -13,7 +13,7 @@ Open [http://localhost:3000](http://localhost:3000). `npm run build && npm run s
 
 ## Adding a case study
 
-1. Create `content/work/your-slug.mdx`. Copy `content/work/placeholder-fourth.mdx` as a starting template — it's a structural stub with every required frontmatter field and section, marked `TODO`.
+1. Create `content/work/your-slug.mdx`. Copy an existing entry (e.g. `content/work/cloudbloom.mdx`) as a starting template for the required frontmatter fields and section order. Never commit a file with `TODO`, `Lorem`, or `placeholder` in it — `scripts/check-content.mjs` fails the build if it finds one.
 2. Fill in the frontmatter. It's validated with Zod (`lib/content/schema.ts`) — a bad or missing field fails the build with a clear error naming the file and field, it won't fail silently:
    - `slug` must exactly match the filename (without `.mdx`).
    - `domain` must be one of `Healthcare | AI | SaaS | E-commerce`.

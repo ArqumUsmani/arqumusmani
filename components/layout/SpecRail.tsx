@@ -35,14 +35,26 @@ function Row({ label, value }: { label: string; value: string }) {
   );
 }
 
+// Design-spec debug overlay — dev tooling, not a feature. Off by default in
+// production; opt back in per-session with ?spec=1 (e.g. for a design review
+// on the live site) without needing a separate deploy.
+const IS_PRODUCTION = process.env.NODE_ENV === "production";
+
 export function SpecRail() {
   const pathname = usePathname();
   const reduceMotion = useReducedMotion();
   const [visible, setVisible] = useState(true);
   const [activeSpec, setActiveSpec] = useState<SpecRailValues | null>(null);
+  const [enabled, setEnabled] = useState(!IS_PRODUCTION);
 
   useEffect(() => {
     if (readCookie("spec-rail") === "off") setVisible(false);
+  }, []);
+
+  useEffect(() => {
+    if (IS_PRODUCTION && new URLSearchParams(window.location.search).get("spec") === "1") {
+      setEnabled(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -66,7 +78,7 @@ export function SpecRail() {
     return () => observer.disconnect();
   }, [pathname]);
 
-  if (reduceMotion) return null;
+  if (!enabled || reduceMotion) return null;
 
   return (
     <div

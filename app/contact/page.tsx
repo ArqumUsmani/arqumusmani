@@ -28,7 +28,7 @@ const SOCIAL_LINKS = [
   { label: "LinkedIn", href: SITE_CONFIG.social.linkedin },
   { label: "Behance", href: SITE_CONFIG.social.behance },
   { label: "Dribbble", href: SITE_CONFIG.social.dribbble },
-];
+].filter((link) => link.href);
 
 export default function ContactPage() {
   return (

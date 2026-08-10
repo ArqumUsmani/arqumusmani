@@ -75,27 +75,31 @@ export function Footer() {
             </div>
 
             <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:gap-16">
-              {FOOTER_COLUMNS.map((column, i) => (
-                <Reveal key={column.heading} index={i + 2}>
-                  <MonoLabel as="p" className="mb-5 text-ink">
-                    {column.heading}
-                  </MonoLabel>
-                  <ul className="space-y-3">
-                    {column.links.map((link) => (
-                      <li key={link.label}>
-                        <a
-                          href={link.href}
-                          target={"external" in link && link.external ? "_blank" : undefined}
-                          rel={"external" in link && link.external ? "noreferrer" : undefined}
-                          className="text-body text-graphite transition-colors duration-300 hover:text-ink"
-                        >
-                          {link.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </Reveal>
-              ))}
+              {FOOTER_COLUMNS.map((column, i) => {
+                const links = column.links.filter((link) => link.href);
+                if (links.length === 0) return null;
+                return (
+                  <Reveal key={column.heading} index={i + 2}>
+                    <MonoLabel as="p" className="mb-5 text-ink">
+                      {column.heading}
+                    </MonoLabel>
+                    <ul className="space-y-3">
+                      {links.map((link) => (
+                        <li key={link.label}>
+                          <a
+                            href={link.href}
+                            target={"external" in link && link.external ? "_blank" : undefined}
+                            rel={"external" in link && link.external ? "noreferrer" : undefined}
+                            className="text-body text-graphite transition-colors duration-300 hover:text-ink"
+                          >
+                            {link.label}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </Reveal>
+                );
+              })}
             </div>
           </div>
         </Container>

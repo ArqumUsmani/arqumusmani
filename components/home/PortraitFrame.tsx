@@ -1,5 +1,9 @@
 import Image from "next/image";
 import { cn } from "@/lib/cn";
+// Static import (not a "/about/Side.png" string src) so Next generates a
+// blur placeholder and intrinsic dimensions automatically instead of us
+// hand-maintaining width/height and shipping no LQIP at all.
+import portraitSrc from "@/public/about/Side.png";
 
 type PortraitFrameProps = {
   sizes: string;
@@ -37,10 +41,9 @@ export function PortraitFrame({ sizes, priority, className, size = "hero" }: Por
           className="pointer-events-none absolute -inset-x-16 -inset-y-20 [background:radial-gradient(circle_at_58%_42%,color-mix(in_srgb,var(--color-signal)_32%,transparent),transparent_62%)] blur-2xl"
         />
         <Image
-          src="/about/Side.png"
+          src={portraitSrc}
           alt="Portrait of Arqum Usmani"
-          width={1236}
-          height={2160}
+          placeholder="blur"
           priority={priority}
           loading={priority ? undefined : "lazy"}
           sizes={sizes}

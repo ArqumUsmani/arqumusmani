@@ -8,10 +8,12 @@ import { AvailabilityPill } from "@/components/layout/AvailabilityPill";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 
+// Notes lives in the footer, not here — two posts nine months apart in the
+// primary nav reads as an abandoned blog. It's still fully indexed/routable,
+// just not promoted above the fold on every page.
 const NAV_ITEMS = [
   { label: "Work", href: "/work" },
   { label: "About", href: "/about" },
-  { label: "Notes", href: "/notes" },
   { label: "Contact", href: "/contact" },
 ];
 

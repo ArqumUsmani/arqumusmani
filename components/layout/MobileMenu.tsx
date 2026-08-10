@@ -6,10 +6,11 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { AvailabilityPill } from "@/components/layout/AvailabilityPill";
 
+// Kept in sync with components/layout/Header.tsx's NAV_ITEMS — Notes lives
+// in the footer only, not the primary nav (see that file for why).
 const NAV_ITEMS = [
   { label: "Work", href: "/work" },
   { label: "About", href: "/about" },
-  { label: "Notes", href: "/notes" },
   { label: "Contact", href: "/contact" },
 ];
 

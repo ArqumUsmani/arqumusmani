@@ -2,7 +2,7 @@ import { SITE_CONFIG } from "@/lib/site-config";
 import type { WorkFrontmatter } from "@/lib/content/schema";
 
 export function personJsonLd() {
-  const sameAs = Object.values(SITE_CONFIG.social).filter((url) => url !== "#");
+  const sameAs = Object.values(SITE_CONFIG.social).filter(Boolean);
 
   return {
     "@context": "https://schema.org",

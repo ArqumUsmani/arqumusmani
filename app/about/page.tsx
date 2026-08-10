@@ -9,6 +9,7 @@ import { ArrowLink } from "@/components/primitives/ArrowLink";
 import { PortraitFrame } from "@/components/home/PortraitFrame";
 import { JsonLd } from "@/components/JsonLd";
 import { personJsonLd } from "@/lib/json-ld";
+import { CAREER, formatCareerPeriod } from "@/data/career";
 
 export const metadata: Metadata = {
   title: "About",
@@ -18,34 +19,6 @@ export const metadata: Metadata = {
     canonical: "/about",
   },
 };
-
-const TIMELINE = [
-  {
-    period: "2024–Present",
-    org: "Oak Street Technologies",
-    role: "Lead Product Designer",
-  },
-  {
-    period: "2023–2024",
-    org: "Hiibo",
-    role: "Lead Designer",
-  },
-  {
-    period: "2021–2023",
-    org: "Stella Technology",
-    role: "UI/UX Engineer",
-  },
-  {
-    period: "2019–2021",
-    org: "CloudFruit",
-    role: "Product Designer",
-  },
-  {
-    period: "2017–2019",
-    org: "Freelance",
-    role: "Design & front-end, Karachi",
-  },
-];
 
 const DESIGN_TOOLS = ["Figma", "FigJam", "Illustrator", "Principle"];
 const BUILD_TOOLS = ["React", "Next.js", "TypeScript", "Tailwind CSS", "Motion"];
@@ -118,14 +91,14 @@ export default function AboutPage() {
             </MonoLabel>
           </Reveal>
           <div>
-            {TIMELINE.map((item, i) => (
-              <Reveal key={item.org} index={i}>
+            {CAREER.map((entry, i) => (
+              <Reveal key={entry.org} index={i}>
                 <div className="grid grid-cols-4 gap-6 border-t border-mist py-6 last:border-b md:grid-cols-12 md:gap-8 md:py-8">
                   <MonoLabel className="col-span-4 self-start text-ash md:col-span-3">
-                    {item.period}
+                    {formatCareerPeriod(entry)}
                   </MonoLabel>
-                  <p className="col-span-4 text-body-l text-ink md:col-span-5">{item.org}</p>
-                  <p className="col-span-4 text-body text-graphite md:col-span-4">{item.role}</p>
+                  <p className="col-span-4 text-body-l text-ink md:col-span-5">{entry.org}</p>
+                  <p className="col-span-4 text-body text-graphite md:col-span-4">{entry.role}</p>
                 </div>
               </Reveal>
             ))}

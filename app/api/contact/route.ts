@@ -18,7 +18,7 @@ async function sendContactEmail(values: { name: string; email: string; type: str
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "Portfolio <contact@ausmani.com>",
+      from: "Portfolio <contact@arqumusmani.com>",
       to: SITE_CONFIG.email,
       reply_to: values.email,
       subject: `${values.type} inquiry from ${values.name}`,
