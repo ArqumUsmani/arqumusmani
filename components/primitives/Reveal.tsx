@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { cn } from "@/lib/cn";
+import { DURATION, EASE_ENTER, RISE_PX } from "@/lib/motion";
 
 type RevealProps = React.ComponentProps<typeof motion.div> & {
   /** Position within a group of siblings — multiplied by 60ms for stagger. */
@@ -16,14 +17,12 @@ type RevealProps = React.ComponentProps<typeof motion.div> & {
   inView?: boolean;
 };
 
-const EASE_SIGNATURE = [0.16, 1, 0.3, 1] as const;
-
 export function Reveal({ className, index = 0, inView = true, ...props }: RevealProps) {
   const reduceMotion = useReducedMotion();
 
   const variants: Variants = reduceMotion
     ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
-    : { hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } };
+    : { hidden: { opacity: 0, y: RISE_PX }, visible: { opacity: 1, y: 0 } };
 
   const viewportProps = inView
     ? { whileInView: "visible", viewport: { once: false, margin: "-80px" } }
@@ -35,9 +34,9 @@ export function Reveal({ className, index = 0, inView = true, ...props }: Reveal
       {...viewportProps}
       variants={variants}
       transition={{
-        duration: reduceMotion ? 0 : 0.6,
+        duration: reduceMotion ? 0 : DURATION.section,
         delay: reduceMotion ? 0 : index * 0.06,
-        ease: EASE_SIGNATURE,
+        ease: EASE_ENTER,
       }}
       className={cn(className)}
       {...props}

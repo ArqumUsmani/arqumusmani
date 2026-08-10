@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { AvailabilityPill } from "@/components/layout/AvailabilityPill";
+import { DURATION, EASE_ENTER } from "@/lib/motion";
 
 // Kept in sync with components/layout/Header.tsx's NAV_ITEMS — Notes lives
 // in the footer only, not the primary nav (see that file for why).
@@ -13,8 +14,6 @@ const NAV_ITEMS = [
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
-
-const EASE_SIGNATURE = [0.16, 1, 0.3, 1] as const;
 
 type MobileMenuProps = {
   open: boolean;
@@ -77,7 +76,7 @@ export function MobileMenu({ open, onClose, triggerRef }: MobileMenuProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.3, ease: EASE_SIGNATURE }}
+          transition={{ duration: reduceMotion ? 0 : DURATION.element, ease: EASE_ENTER }}
           className="fixed inset-0 z-[60] flex flex-col bg-paper md:hidden"
         >
           <div className="flex items-center justify-between px-[clamp(1.25rem,5vw,6rem)] py-6">
@@ -103,9 +102,9 @@ export function MobileMenu({ open, onClose, triggerRef }: MobileMenuProps) {
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{
-                    duration: reduceMotion ? 0 : 0.6,
+                    duration: reduceMotion ? 0 : DURATION.section,
                     delay: reduceMotion ? 0 : i * 0.06,
-                    ease: EASE_SIGNATURE,
+                    ease: EASE_ENTER,
                   }}
                 >
                   <Link

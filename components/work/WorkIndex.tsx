@@ -6,8 +6,7 @@ import Image from "next/image";
 import { motion, useMotionValue, useSpring, useReducedMotion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/cn";
 import { MonoLabel } from "@/components/primitives/MonoLabel";
-
-const EASE_SIGNATURE = [0.16, 1, 0.3, 1] as const;
+import { DURATION, EASE_ENTER } from "@/lib/motion";
 
 export type WorkIndexItem = {
   slug: string;
@@ -163,7 +162,7 @@ export function WorkIndex({ items }: WorkIndexProps) {
         style={{ x: reduceMotion ? mouseX : springX, y: reduceMotion ? mouseY : springY }}
         initial={false}
         animate={{ opacity: hoveredItem ? 1 : 0, scale: reduceMotion || hoveredItem ? 1 : 0.97 }}
-        transition={{ duration: reduceMotion ? 0 : 0.3, ease: EASE_SIGNATURE }}
+        transition={{ duration: reduceMotion ? 0 : DURATION.element, ease: EASE_ENTER }}
       >
         <AnimatePresence mode="wait">
           {hoveredItem && (
@@ -172,7 +171,7 @@ export function WorkIndex({ items }: WorkIndexProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: reduceMotion ? 0 : 0.25, ease: EASE_SIGNATURE }}
+              transition={{ duration: reduceMotion ? 0 : DURATION.element, ease: EASE_ENTER }}
             >
               <Image
                 src={hoveredItem.cover}

@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { SpecRailValues } from "@/components/primitives/Section";
-
-const EASE_SIGNATURE = [0.16, 1, 0.3, 1] as const;
+import { DURATION, EASE_ENTER } from "@/lib/motion";
 
 function readCookie(name: string): string | null {
   const match = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
@@ -95,7 +94,7 @@ export function SpecRail() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.3, ease: EASE_SIGNATURE }}
+                transition={{ duration: DURATION.element, ease: EASE_ENTER }}
               >
                 <p className="mb-2 whitespace-nowrap">── {activeSpec.index}</p>
                 <div className="space-y-1">

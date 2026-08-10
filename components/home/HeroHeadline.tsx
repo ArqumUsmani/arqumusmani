@@ -2,10 +2,10 @@
 
 import { useLayoutEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
+import { DURATION, EASE_ENTER } from "@/lib/motion";
 
 const LINES = ["I design product experiences", "in healthcare, AI, and SaaS,", "and I build them."];
 
-const EASE_SIGNATURE = [0.16, 1, 0.3, 1] as const;
 const SESSION_KEY = "hero-headline-played";
 
 export function HeroHeadline() {
@@ -32,9 +32,9 @@ export function HeroHeadline() {
             initial={{ y: "100%" }}
             animate={{ y: visible ? "0%" : "100%" }}
             transition={{
-              duration: instant ? 0 : 0.6,
+              duration: instant ? 0 : DURATION.section,
               delay: instant ? 0 : i * 0.06,
-              ease: EASE_SIGNATURE,
+              ease: EASE_ENTER,
             }}
           >
             {line}

@@ -65,11 +65,14 @@
   /* Container / grid */
   --container-page: 1440px;
 
-  /* Motion — one curve, everywhere. Overriding Tailwind's default timing
-     function means every unqualified transition-* utility (transition-colors
-     duration-300, etc.) resolves to the signature curve automatically,
-     instead of silently falling back to Tailwind's cubic-bezier(0.4,0,0.2,1). */
+  /* Motion — one curve for entrances, everywhere. Overriding Tailwind's
+     default timing function means every unqualified transition-* utility
+     (transition-colors duration-300, etc.) resolves to the signature curve
+     automatically, instead of silently falling back to Tailwind's
+     cubic-bezier(0.4,0,0.2,1). Mirrored in lib/motion.ts as EASE_ENTER for
+     JS-driven animation (Motion, GSAP) — change both if you change either. */
   --ease-signature: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
   --default-transition-timing-function: var(--ease-signature);
 }
 
@@ -138,7 +141,7 @@
    rise. Transform + opacity only, so there is nothing to reflow: no layout
    shift. Unsupported browsers (no View Transitions API) just swap instantly. */
 ::view-transition-old(.page-exit) {
-  animation: 200ms var(--ease-signature) both page-exit;
+  animation: 200ms var(--ease-exit) both page-exit;
 }
 
 ::view-transition-new(.page-enter) {

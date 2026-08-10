@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/cn";
+import { DURATION, EASE_ENTER } from "@/lib/motion";
 
 export type DesignedForCompany = {
   org: string;
@@ -16,8 +17,6 @@ export type DesignedForCompany = {
   metricLabel?: string;
   caseStudyHref?: string;
 };
-
-const EASE_SIGNATURE = [0.16, 1, 0.3, 1] as const;
 
 function DetailBody({ company }: { company: DesignedForCompany }) {
   return (
@@ -76,7 +75,7 @@ export function DesignedForStrip({ companies }: { companies: DesignedForCompany[
                 aria-pressed={i === activeIndex}
                 onMouseEnter={() => setActiveIndex(i)}
                 onFocus={() => setActiveIndex(i)}
-                className="opacity-45 grayscale transition-[opacity,filter] duration-200 hover:opacity-100 hover:grayscale-0 focus-visible:opacity-100 focus-visible:grayscale-0 data-[active=true]:opacity-100 data-[active=true]:grayscale-0"
+                className="opacity-45 grayscale transition-[opacity,filter] duration-300 hover:opacity-100 hover:grayscale-0 focus-visible:opacity-100 focus-visible:grayscale-0 data-[active=true]:opacity-100 data-[active=true]:grayscale-0"
                 data-active={i === activeIndex}
               >
                 <Image src={company.logoSrc} alt="" width={200} height={48} className="h-6 w-auto md:h-7" />
@@ -92,7 +91,7 @@ export function DesignedForStrip({ companies }: { companies: DesignedForCompany[
               initial={reduceMotion ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={reduceMotion ? undefined : { opacity: 0, y: -12 }}
-              transition={{ duration: reduceMotion ? 0 : 0.2, ease: EASE_SIGNATURE }}
+              transition={{ duration: reduceMotion ? 0 : DURATION.element, ease: EASE_ENTER }}
             >
               <DetailBody company={active} />
             </motion.div>
