@@ -24,9 +24,8 @@ export function AboutTeaser() {
                 I also lean on AI daily, for ideation, research, and speed, not as a gimmick but as
                 how the work actually gets done now.
               </p>
-              <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+              <div className="mt-8">
                 <ArrowLink href="/about">More about me</ArrowLink>
-                <ArrowLink href="/contact">Want to get connected? Let&rsquo;s talk over coffee</ArrowLink>
               </div>
             </Reveal>
           </div>

@@ -61,12 +61,9 @@ export default function AboutPage() {
                   tool doesn&rsquo;t make someone faster at reaching the right answer, it&rsquo;s not done yet.
                 </p>
               </Reveal>
-              <Reveal index={2} className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+              <Reveal index={2} className="mt-8">
                 <ArrowLink href="/resume.pdf" variant="mono">
                   Download resume (PDF)
-                </ArrowLink>
-                <ArrowLink href="/contact" variant="mono">
-                  Want to get connected? Let&rsquo;s talk over coffee
                 </ArrowLink>
               </Reveal>
             </div>

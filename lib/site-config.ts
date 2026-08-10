@@ -5,7 +5,7 @@ import { CAREER_START_YEAR } from "@/data/career";
  * base URL. Swap NEXT_PUBLIC_SITE_URL (or the fallback below) for a custom
  * domain later; nothing else in the codebase should hardcode any of this.
  */
-const EXPERIENCE_YEARS = new Date().getFullYear() - CAREER_START_YEAR;
+export const EXPERIENCE_YEARS = new Date().getFullYear() - CAREER_START_YEAR;
 
 export const SITE_CONFIG = {
   name: "Arqum Usmani",

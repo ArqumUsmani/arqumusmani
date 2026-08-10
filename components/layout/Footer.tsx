@@ -55,22 +55,28 @@ export function Footer() {
                   {preventOrphans("Let's build something worth shipping.")}
                 </h2>
               </Reveal>
-              {/* rounded-full on these two is a deliberate one-off, same as
-                  the footer card radius: a direct, specific request, not a
-                  drift from the 2px-radius rule everywhere else. */}
-              <Reveal index={1} className="mt-10 flex flex-col gap-4 sm:flex-row">
+              {/* One dominant ask, not two competing ones: full-time
+                  Lead/Principal roles is the primary CTA (the pill button,
+                  rounded-full is a deliberate one-off matching the footer
+                  card radius above). Contract/advisory availability is real
+                  but secondary — a quiet text line, not an equal button. */}
+              <Reveal index={1} className="mt-10">
                 <a
                   href={`mailto:${SITE_CONFIG.email}?subject=Full-time%20role`}
                   className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-ink px-7 py-4 font-mono text-mono-label uppercase text-paper transition-colors duration-300 hover:bg-graphite"
                 >
                   Hire me full-time
                 </a>
-                <a
-                  href={`mailto:${SITE_CONFIG.email}?subject=Project%20inquiry`}
-                  className="inline-flex items-center justify-center whitespace-nowrap rounded-full border border-mist px-7 py-4 font-mono text-mono-label uppercase text-ink transition-colors duration-300 hover:border-ink"
-                >
-                  Work with me
-                </a>
+                <p className="mt-4 text-body-s text-ash">
+                  Also open to contract and advisory work,{" "}
+                  <a
+                    href={`mailto:${SITE_CONFIG.email}?subject=Project%20inquiry`}
+                    className="text-graphite underline decoration-mist decoration-1 underline-offset-4 transition-colors duration-300 hover:text-ink hover:decoration-signal"
+                  >
+                    reach out directly
+                  </a>
+                  .
+                </p>
               </Reveal>
             </div>
 
