@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ViewTransition } from "react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/primitives/Container";
@@ -69,26 +70,38 @@ export default async function WorkCaseStudyPage({
             <MonoLabel as="p" className="mb-6">
               {frontmatter.domain} · {frontmatter.year}
             </MonoLabel>
+          </Reveal>
+          {/* Not wrapped in Reveal: this h1 is the morph target for the
+              shared-element transition from the home page card (matching
+              name in components/home/SelectedWorkStack.tsx). Gating it
+              behind Motion's own opacity fade would fight the morph's
+              continuity on arrival — direct visits just get it instantly,
+              which is also the right call for LCP. */}
+          <ViewTransition name={`work-title-${frontmatter.slug}`}>
             <h1 className="max-w-[22ch] text-display-l text-ink">{preventOrphans(frontmatter.title)}</h1>
+          </ViewTransition>
+          <Reveal inView={false} index={1}>
             <p className="mt-6 max-w-[60ch] text-body-l text-graphite">{frontmatter.thesis}</p>
           </Reveal>
           {frontmatter.confidential && (
-            <Reveal inView={false} index={1} className="mt-8">
+            <Reveal inView={false} index={2} className="mt-8">
               <ConfidentialNotice />
             </Reveal>
           )}
         </Container>
 
         <div className="mt-12 w-full border-y border-mist bg-fog md:mt-16">
-          <Image
-            src={frontmatter.cover}
-            alt={`Cover image for ${frontmatter.title}`}
-            width={1920}
-            height={1200}
-            priority
-            sizes="100vw"
-            className="h-auto max-h-[70vh] w-full object-cover"
-          />
+          <ViewTransition name={`work-image-${frontmatter.slug}`}>
+            <Image
+              src={frontmatter.cover}
+              alt={`Cover image for ${frontmatter.title}`}
+              width={1920}
+              height={1200}
+              priority
+              sizes="100vw"
+              className="h-auto max-h-[70vh] w-full object-cover"
+            />
+          </ViewTransition>
         </div>
       </Section>
 
