@@ -73,9 +73,21 @@ function StickyCard({ item, index, total }: { item: SelectedWorkItem; index: num
   const ref = useRef<HTMLDivElement>(null);
   const isLast = index === total - 1;
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  // A no-op range for the last card — nothing covers it, so it never shrinks.
-  const scale = useTransform(scrollYProgress, [0, 1], [1, isLast ? 1 : 0.96]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, isLast ? 1 : 0.85]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.96]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
+
+  // The last card has nothing to make way for, so it doesn't get the extra
+  // 100/110vh scroll runway the others use to hold themselves pinned while
+  // the next card slides up and over — that runway on the last card was
+  // dead scroll distance with no visual change, which reads as the page
+  // being stuck right before the next section.
+  if (isLast) {
+    return (
+      <div ref={ref} className="relative h-[70vh] md:h-[75vh]">
+        <Card item={item} index={index} />
+      </div>
+    );
+  }
 
   return (
     <div ref={ref} className="relative h-[100vh] md:h-[110vh]">

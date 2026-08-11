@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/primitives/Container";
 import { Section } from "@/components/primitives/Section";
-import { Grid } from "@/components/primitives/Grid";
 import { Reveal } from "@/components/primitives/Reveal";
 import { MonoLabel } from "@/components/primitives/MonoLabel";
 import { Rule } from "@/components/primitives/Rule";
 import { ArrowLink } from "@/components/primitives/ArrowLink";
 import { PortraitFrame } from "@/components/home/PortraitFrame";
+import { ToolGrid, type Tool } from "@/components/about/ToolGrid";
+import { CareerTimeline, type TimelineEntry } from "@/components/about/CareerTimeline";
 import { JsonLd } from "@/components/JsonLd";
 import { personJsonLd } from "@/lib/json-ld";
 import { CAREER, formatCareerPeriod } from "@/data/career";
+import { getWorkBySlug } from "@/lib/content/work";
 
 export const metadata: Metadata = {
   title: "About",
@@ -23,10 +25,62 @@ export const metadata: Metadata = {
 const FULL_TIME = CAREER.filter((entry) => entry.commitment === "full-time");
 const PART_TIME = CAREER.filter((entry) => entry.commitment === "part-time");
 
-const DESIGN_TOOLS = ["Figma", "FigJam", "Illustrator", "Principle"];
-const BUILD_TOOLS = ["React", "Next.js", "TypeScript", "Tailwind CSS", "Motion"];
+const RESEARCH_PROCESS =
+  "My process blends AI-assisted research, product analysis, user psychology, and curated design inspiration to transform ambiguity into clear product direction.";
 
-export default function AboutPage() {
+const TOOL_GROUPS: { name: string; clause: string; years: string; tools: Tool[] }[] = [
+  {
+    name: "Interface & Systems",
+    clause: "Interface design, prototyping, and product structure",
+    years: "7+ yrs",
+    tools: [
+      { name: "Figma", logoSrc: "/logos/figma.svg" },
+      { name: "ChatGPT", logoSrc: "/logos/chatgpt.png" },
+      { name: "Claude", logoSrc: "/logos/claude.svg" },
+    ],
+  },
+  {
+    name: "Build & Ship",
+    clause: "Building and shipping production interfaces, including mobile apps",
+    years: "7+ yrs",
+    tools: [
+      { name: "React", logoSrc: "/logos/react.svg" },
+      { name: "Angular", logoSrc: "/logos/angular.svg" },
+      { name: "HTML", logoSrc: "/logos/html5.svg" },
+      { name: "CSS", logoSrc: "/logos/css.svg" },
+      { name: "Tailwind CSS", logoSrc: "/logos/tailwindcss.svg" },
+      { name: "TypeScript", logoSrc: "/logos/typescript.svg" },
+      { name: "JavaScript", logoSrc: "/logos/javascript.svg" },
+      { name: "Claude Code", logoSrc: "/logos/claudecode.svg" },
+      { name: "Framer", logoSrc: "/logos/framer.svg" },
+      { name: "Webflow", logoSrc: "/logos/webflow.svg" },
+    ],
+  },
+  {
+    name: "Code Management",
+    clause: "Version control and code management",
+    years: "7+ yrs",
+    tools: [{ name: "GitHub", logoSrc: "/logos/github.svg" }],
+  },
+];
+
+export default async function AboutPage() {
+  const timelineEntries: TimelineEntry[] = await Promise.all(
+    FULL_TIME.map(async (entry) => {
+      const caseStudy = entry.caseStudySlug ? await getWorkBySlug(entry.caseStudySlug) : undefined;
+      const outcome = caseStudy?.frontmatter.outcomes[0];
+
+      return {
+        org: entry.org,
+        period: formatCareerPeriod(entry),
+        role: entry.role,
+        scope: caseStudy?.frontmatter.team ?? entry.scope,
+        outcomeValue: outcome?.value,
+        outcomeLabel: outcome?.label,
+      };
+    }),
+  );
+
   return (
     <>
       <JsonLd data={personJsonLd()} />
@@ -90,19 +144,7 @@ export default function AboutPage() {
               Career
             </MonoLabel>
           </Reveal>
-          <div>
-            {FULL_TIME.map((entry, i) => (
-              <Reveal key={entry.org} index={i}>
-                <div className="grid grid-cols-4 gap-6 border-t border-mist py-6 last:border-b md:grid-cols-12 md:gap-8 md:py-8">
-                  <MonoLabel className="col-span-4 self-start text-ash md:col-span-3">
-                    {formatCareerPeriod(entry)}
-                  </MonoLabel>
-                  <p className="col-span-4 text-body-l text-ink md:col-span-5">{entry.org}</p>
-                  <p className="col-span-4 text-body text-graphite md:col-span-4">{entry.role}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          <CareerTimeline entries={timelineEntries} />
 
           {/* Part-time work ran concurrently alongside Stella Technology,
               not after it — a second sequential row would misrepresent it
@@ -135,32 +177,26 @@ export default function AboutPage() {
               Tools
             </MonoLabel>
           </Reveal>
-          <Grid>
-            <Reveal className="col-span-4 md:col-span-6">
-              <MonoLabel as="p" className="mb-5 text-ink">
-                Design
-              </MonoLabel>
-              <ul className="space-y-3">
-                {DESIGN_TOOLS.map((tool) => (
-                  <li key={tool} className="text-body-l text-graphite">
-                    {tool}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-            <Reveal index={1} className="col-span-4 md:col-span-6">
-              <MonoLabel as="p" className="mb-5 text-ink">
-                Build
-              </MonoLabel>
-              <ul className="space-y-3">
-                {BUILD_TOOLS.map((tool) => (
-                  <li key={tool} className="text-body-l text-graphite">
-                    {tool}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-          </Grid>
+          <Reveal index={1}>
+            <p className="max-w-[60ch] text-body text-graphite">{RESEARCH_PROCESS}</p>
+          </Reveal>
+          <div className="mt-12 space-y-12">
+            {TOOL_GROUPS.map((group, i) => (
+              <div key={group.name}>
+                <Reveal index={i}>
+                  <MonoLabel as="p" className="text-ink">
+                    {group.name}
+                  </MonoLabel>
+                  <p className="mt-2 max-w-[52ch] text-body-s text-ash">
+                    {group.clause} &middot; {group.years}
+                  </p>
+                </Reveal>
+                <div className="mt-5">
+                  <ToolGrid tools={group.tools} />
+                </div>
+              </div>
+            ))}
+          </div>
           <Rule className="mt-16" />
         </Container>
       </Section>

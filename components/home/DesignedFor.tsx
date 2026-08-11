@@ -9,9 +9,9 @@ import { getWorkBySlug } from "@/lib/content/work";
 // Real orgs only — "Freelance" has no logo/entity to show here, and no
 // case study of its own.
 const LOGO_SRC: Record<string, string> = {
-  "Oak Street Technologies": "/logos/oak-street.svg",
+  "Oak Street Technologies": "/logos/oak-street.png",
   CloudBloom: "/logos/cloudbloom.svg",
-  CloudFruit: "/logos/cloudfruit.svg",
+  CloudFruit: "/logos/cloudfruit.png",
   "Stella Technology": "/logos/stella-technology.svg",
   "Ingenious Digital Systems": "/logos/ingenious-digital-systems.svg",
 };

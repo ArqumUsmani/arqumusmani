@@ -26,6 +26,13 @@ export type CareerEntry = {
   caseStudySlug?: string;
   /** Named products, for employers that ship more than one (e.g. CloudFruit). */
   products?: string[];
+  /**
+   * One-line scope (team size, what I owned) for entries with no case
+   * study to pull `frontmatter.team` from. Entries that do have a
+   * caseStudySlug source this from the case study instead — see
+   * app/about/page.tsx — so it isn't set here for those.
+   */
+  scope?: string;
 };
 
 export const CAREER: CareerEntry[] = [
@@ -47,6 +54,7 @@ export const CAREER: CareerEntry[] = [
     startYear: 2019,
     endYear: 2021,
     commitment: "full-time",
+    scope: "Kiosk, vehicle-tracking, and industrial automation interfaces for CDC Pakistan, Engro Pakistan, and Sindh Solid Waste Management.",
   },
   { org: "Freelance", role: "Design & front-end, Karachi", startYear: 2017, endYear: 2019, commitment: "full-time" },
 ];
