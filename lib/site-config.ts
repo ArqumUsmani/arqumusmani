@@ -1,11 +1,11 @@
-import { CAREER_START_YEAR } from "@/data/career";
+import { PROFESSIONAL_START_YEAR } from "@/data/career";
 
 /**
  * Single source of truth for site identity — name, contact, socials, and the
  * base URL. Swap NEXT_PUBLIC_SITE_URL (or the fallback below) for a custom
  * domain later; nothing else in the codebase should hardcode any of this.
  */
-export const EXPERIENCE_YEARS = new Date().getFullYear() - CAREER_START_YEAR;
+export const EXPERIENCE_YEARS = new Date().getFullYear() - PROFESSIONAL_START_YEAR;
 
 export const SITE_CONFIG = {
   name: "Arqum Usmani",
@@ -16,14 +16,13 @@ export const SITE_CONFIG = {
   // sitemap, robots, RSS, and JSON-LD. Override with NEXT_PUBLIC_SITE_URL for
   // local/preview builds so those don't falsely claim the production URL.
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.arqumusmani.com",
-  email: "hello@arqumusmani.com",
+  email: "arqamusmani@gmail.com",
   whatsapp: "+923332204980",
   locale: "en_US",
   // Empty string, not a placeholder hash — an unpopulated link renders as
   // no link at all (see the filtering in Footer.tsx / contact/page.tsx).
   social: {
-    linkedin: "",
-    behance: "",
-    dribbble: "",
+    linkedin: "https://www.linkedin.com/in/arqumusmani/",
+    behance: "https://www.behance.net/arqumusmani",
   },
 } as const;

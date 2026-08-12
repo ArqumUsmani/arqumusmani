@@ -33,6 +33,13 @@ export type CareerEntry = {
    * app/about/page.tsx — so it isn't set here for those.
    */
   scope?: string;
+  /**
+   * Whether this entry counts toward the site's "N+ years" positioning
+   * claim. Defaults to true. Freelance is real work history (kept in the
+   * timeline) but is excluded from the headline years figure, which counts
+   * from the first full-time UI/UX role instead.
+   */
+  countsTowardExperience?: boolean;
 };
 
 export const CAREER: CareerEntry[] = [
@@ -56,10 +63,40 @@ export const CAREER: CareerEntry[] = [
     commitment: "full-time",
     scope: "Kiosk, vehicle-tracking, and industrial automation interfaces for CDC Pakistan, Engro Pakistan, and Sindh Solid Waste Management.",
   },
-  { org: "Freelance", role: "Design & front-end, Karachi", startYear: 2017, endYear: 2019, commitment: "full-time" },
+  {
+    org: "Freelance",
+    role: "Design & front-end, Karachi",
+    startYear: 2017,
+    endYear: 2019,
+    commitment: "full-time",
+    countsTowardExperience: false,
+  },
 ];
 
+/** Full career span, including freelance — used for the About page timeline. */
 export const CAREER_START_YEAR = Math.min(...CAREER.map((entry) => entry.startYear));
+
+/**
+ * "N+ years" positioning figure — counts from the first full-time UI/UX
+ * role, not total career span. See `countsTowardExperience` above.
+ */
+export const PROFESSIONAL_START_YEAR = Math.min(
+  ...CAREER.filter((entry) => entry.countsTowardExperience !== false).map((entry) => entry.startYear),
+);
+
+/** Real employers, excluding Freelance (not a company). For the hero facts panel. */
+export const COMPANIES_COUNT = CAREER.filter((entry) => entry.countsTowardExperience !== false).length;
+
+/**
+ * Distinct shipped products — each entry's named `products` where given,
+ * otherwise one per `caseStudySlug` (a case study documents one product).
+ * Entries with neither (no public case study yet, or no case study at all)
+ * don't contribute a counted product. For the hero facts panel.
+ */
+export const PRODUCTS_SHIPPED_COUNT = CAREER.reduce(
+  (sum, entry) => sum + (entry.products?.length ?? (entry.caseStudySlug ? 1 : 0)),
+  0,
+);
 
 export function formatCareerPeriod(entry: CareerEntry): string {
   return `${entry.startYear}–${entry.endYear}`;

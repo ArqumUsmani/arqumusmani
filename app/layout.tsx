@@ -1,17 +1,32 @@
 import type { Metadata, Viewport } from "next";
-import { Inter_Tight, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Inter, Geist_Mono, Instrument_Serif } from "next/font/google";
+import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { SpecRail } from "@/components/layout/SpecRail";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { SITE_CONFIG } from "@/lib/site-config";
 
-const interTight = Inter_Tight({
-  variable: "--font-inter-tight",
+// Body/UI text — replaces Inter Tight.
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+});
+
+// Display/headline face — self-hosted because General Sans isn't on Google
+// Fonts. Same display:swap + fallback discipline as the Google-served faces,
+// so there's still no layout shift while it loads.
+const generalSans = localFont({
+  src: [
+    { path: "./fonts/general-sans/GeneralSans-Regular.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/general-sans/GeneralSans-Medium.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/general-sans/GeneralSans-SemiBold.woff2", weight: "600", style: "normal" },
+    { path: "./fonts/general-sans/GeneralSans-Bold.woff2", weight: "700", style: "normal" },
+  ],
+  variable: "--font-general-sans",
   display: "swap",
 });
 
@@ -22,9 +37,9 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-// Single-weight display serif, italic only — reserved for the one-off accent
-// phrases on the About sections. Not part of the type scale, don't reach for
-// it elsewhere.
+// Legacy accent face, still used by the About page's one italic phrase until
+// that page's own redesign phase lands — not part of the new type system,
+// don't reach for it in new work.
 const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
   subsets: ["latin"],
@@ -66,10 +81,11 @@ export const viewport: Viewport = {
 };
 
 // Runs before first paint, before hydration — reads the `theme` cookie (set
-// by ThemeToggle) and falls back to system preference. This is what makes
-// dark mode flash-free without making every static page dynamic: no server
-// cookies() read, just a synchronous script ahead of any visible content.
-const THEME_INIT_SCRIPT = `(function(){try{var m=document.cookie.match(/(?:^|; )theme=([^;]*)/);var t=m?decodeURIComponent(m[1]):null;if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){document.documentElement.classList.add("dark")}}catch(e){}})();`;
+// by ThemeToggle). Dark is the default now regardless of system preference
+// (the redesign's primary theme); an explicit "light" cookie is the only
+// way to opt out. Still flash-free: synchronous script ahead of any visible
+// content, no server cookies() read needed.
+const THEME_INIT_SCRIPT = `(function(){try{var m=document.cookie.match(/(?:^|; )theme=([^;]*)/);var t=m?decodeURIComponent(m[1]):null;if(t!=="light"){document.documentElement.classList.add("dark")}}catch(e){}})();`;
 
 export default function RootLayout({
   children,
@@ -78,7 +94,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${interTight.variable} ${geistMono.variable} ${instrumentSerif.variable} h-full antialiased`}
+      className={`${inter.variable} ${generalSans.variable} ${geistMono.variable} ${instrumentSerif.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-paper text-ink">
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
@@ -98,7 +114,6 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
-        <SpecRail />
         <Analytics />
       </body>
     </html>

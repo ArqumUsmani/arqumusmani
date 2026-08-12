@@ -41,10 +41,7 @@ const SPACING_STEPS = [4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192, 256];
 export default function StyleguidePage() {
   return (
     <>
-      <Section
-        spec={{ index: "01 / INTRO", type: "display-xl · 500", space: "160 / 96" }}
-        className="pt-16 md:pt-24"
-      >
+      <Section className="pt-16 md:pt-24">
         <Container>
           <Reveal inView={false}>
             <MonoLabel as="p" className="mb-6">
@@ -59,9 +56,7 @@ export default function StyleguidePage() {
         </Container>
       </Section>
 
-      <Section
-        spec={{ index: "02 / COLOUR", type: "mono-label · 500", grid: "7 col · 24 gutter", space: "96 / 96" }}
-      >
+      <Section>
         <Container>
           <Reveal>
             <MonoLabel as="p" className="mb-8">
@@ -91,9 +86,7 @@ export default function StyleguidePage() {
         </Container>
       </Section>
 
-      <Section
-        spec={{ index: "03 / TYPE", type: "display-l → mono-label", grid: "12 col · 32 gutter", space: "96 / 96" }}
-      >
+      <Section>
         <Container>
           <Reveal>
             <MonoLabel as="p" className="mb-8">
@@ -114,9 +107,7 @@ export default function StyleguidePage() {
         </Container>
       </Section>
 
-      <Section
-        spec={{ index: "04 / SPACE", type: "mono-label · 500", grid: "12 col · 32 gutter", space: "4px base" }}
-      >
+      <Section>
         <Container>
           <Reveal>
             <MonoLabel as="p" className="mb-8">
@@ -134,9 +125,7 @@ export default function StyleguidePage() {
         </Container>
       </Section>
 
-      <Section
-        spec={{ index: "05 / RADIUS", type: "2px ceiling", space: "96 / 96" }}
-      >
+      <Section>
         <Container>
           <Reveal>
             <MonoLabel as="p" className="mb-8">
@@ -156,9 +145,7 @@ export default function StyleguidePage() {
         </Container>
       </Section>
 
-      <Section
-        spec={{ index: "06 / PRIMITIVES", type: "body · 400", grid: "12 col · 32 gutter", space: "96 / 96" }}
-      >
+      <Section>
         <Container>
           <Reveal>
             <MonoLabel as="p" className="mb-8">

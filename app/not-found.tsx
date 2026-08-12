@@ -6,10 +6,7 @@ import { preventOrphans } from "@/lib/typography";
 
 export default function NotFound() {
   return (
-    <Section
-      spec={{ index: "404 / NOT FOUND", type: "display-xl · 500", space: "160 / 160" }}
-      className="flex min-h-[calc(100vh-5rem)] items-center pt-16 md:min-h-[calc(100vh-6rem)] md:pt-24"
-    >
+    <Section className="flex min-h-[calc(100vh-5rem)] items-center pt-16 md:min-h-[calc(100vh-6rem)] md:pt-24">
       <Container>
         <MonoLabel as="p" className="mb-6">
           404

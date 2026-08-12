@@ -29,10 +29,7 @@ export default async function NotesPage() {
   const notes = await getAllNotes();
 
   return (
-    <Section
-      spec={{ index: "01 / NOTES", type: "display-xl · 500", space: "160 / 96" }}
-      className="pt-16 md:pt-24"
-    >
+    <Section className="pt-16 md:pt-24">
       <Container>
         <Reveal inView={false}>
           <MonoLabel as="p" className="mb-6">

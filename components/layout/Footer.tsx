@@ -25,10 +25,7 @@ const FOOTER_COLUMNS = [
   },
   {
     heading: "Elsewhere",
-    links: [
-      { label: "Behance", href: SITE_CONFIG.social.behance, external: true },
-      { label: "Dribbble", href: SITE_CONFIG.social.dribbble, external: true },
-    ],
+    links: [{ label: "Behance", href: SITE_CONFIG.social.behance, external: true }],
   },
 ];
 
@@ -116,7 +113,7 @@ export function Footer() {
             text="Arqum Usmani"
             tag="p"
             splitType="chars"
-            duration={0.9}
+            duration={2}
             delay={22}
             ease="power3.out"
             from={{ opacity: 0, y: 40 }}
@@ -124,7 +121,7 @@ export function Footer() {
             threshold={0.2}
             rootMargin="-80px"
             textAlign="center"
-            className="-mb-[0.12em] block w-full px-4 font-sans text-[16vw] font-bold leading-none tracking-tighter text-ink md:-mb-[0.09em] md:text-[13vw]"
+            className="-mb-[0.12em] block w-full px-4 font-sans text-[16vw] font-bold leading-none tracking-tighter text-ink md:-mb-[0.19em] md:text-[13vw]"
           />
         </div>
       </div>

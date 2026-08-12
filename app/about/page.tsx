@@ -85,7 +85,6 @@ export default async function AboutPage() {
     <>
       <JsonLd data={personJsonLd()} />
       <Section
-        spec={{ index: "01 / ABOUT", type: "display-xl · 500", grid: "12 col · 32 gutter", space: "160 / 96" }}
         className="pt-16 md:pt-24"
       >
         <Container>
@@ -135,7 +134,6 @@ export default async function AboutPage() {
       </Section>
 
       <Section
-        spec={{ index: "02 / TIMELINE", type: "body · 400", grid: "12 col · 32 gutter", space: "96 / 96" }}
         className="border-t border-mist"
       >
         <Container>
@@ -168,7 +166,6 @@ export default async function AboutPage() {
       </Section>
 
       <Section
-        spec={{ index: "03 / TOOLS", type: "body · 400", grid: "12 col · 32 gutter", space: "96 / 96" }}
         className="border-t border-mist"
       >
         <Container>

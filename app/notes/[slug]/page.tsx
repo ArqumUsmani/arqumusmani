@@ -56,10 +56,7 @@ export default async function NotePage({
   const { frontmatter, content } = entry;
 
   return (
-    <Section
-      spec={{ index: "01 / NOTE", type: "display-l · 500", space: "160 / 96" }}
-      className="pt-16 md:pt-24"
-    >
+    <Section className="pt-16 md:pt-24">
       <Container>
         <Reveal inView={false}>
           <MonoLabel as="p" className="mb-6">

@@ -7,7 +7,6 @@ import { preventOrphans } from "@/lib/typography";
 export function DesignBuild() {
   return (
     <Section
-      spec={{ index: "04 / WEDGE", type: "body-l · 400", grid: "12 col · 32 gutter", space: "96 / 96" }}
       className="border-t border-mist"
     >
       <Container>

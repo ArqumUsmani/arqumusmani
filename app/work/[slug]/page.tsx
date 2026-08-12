@@ -61,22 +61,19 @@ export default async function WorkCaseStudyPage({
       <JsonLd data={creativeWorkJsonLd(frontmatter)} />
       <ReadingProgress />
 
-      <Section
-        spec={{ index: "01 / HERO", type: "display-l · 500", space: "64 / 0" }}
-        className="pb-0 pt-16 md:pt-24"
-      >
+      <Section className="pb-0 pt-16 md:pt-24">
         <Container>
           <Reveal inView={false}>
             <MonoLabel as="p" className="mb-6">
               {frontmatter.domain} · {frontmatter.year}
             </MonoLabel>
           </Reveal>
-          {/* Not wrapped in Reveal: this h1 is the morph target for the
-              shared-element transition from the home page card (matching
-              name in components/home/SelectedWorkStack.tsx). Gating it
-              behind Motion's own opacity fade would fight the morph's
-              continuity on arrival — direct visits just get it instantly,
-              which is also the right call for LCP. */}
+          {/* Not wrapped in Reveal: gating this h1 behind Motion's own
+              opacity fade would cost LCP on a direct visit for no benefit.
+              The ViewTransition name is dormant now that the home page's
+              card grid (which used to provide the matching source element
+              for a shared-element morph) has been removed — harmless to
+              leave in place if a card-based entry point returns later. */}
           <ViewTransition name={`work-title-${frontmatter.slug}`}>
             <h1 className="max-w-[22ch] text-display-l text-ink">{preventOrphans(frontmatter.title)}</h1>
           </ViewTransition>
@@ -115,7 +112,7 @@ export default async function WorkCaseStudyPage({
       />
 
       {frontmatter.gallery.length > 0 && (
-        <Section spec={{ index: "02 / GALLERY", type: "figure grid", space: "64 / 0" }} className="pb-0">
+        <Section className="pb-0">
           <Container>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8">
               {frontmatter.gallery.map((src, i) => (
@@ -135,7 +132,7 @@ export default async function WorkCaseStudyPage({
         </Section>
       )}
 
-      <Section spec={{ index: "03 / ARTICLE", type: "body · 400", space: "96 / 96" }}>
+      <Section>
         <Container>
           <article>{content}</article>
         </Container>

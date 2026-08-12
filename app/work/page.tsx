@@ -31,10 +31,7 @@ export default async function WorkPage() {
   }));
 
   return (
-    <Section
-      spec={{ index: "01 / WORK INDEX", type: "body-l · 400", grid: "12 col · 32 gutter", space: "160 / 96" }}
-      className="pt-16 md:pt-24"
-    >
+    <Section className="pt-16 md:pt-24">
       <Container>
         <Reveal inView={false}>
           <MonoLabel as="p" className="mb-6">

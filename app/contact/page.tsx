@@ -27,15 +27,11 @@ const ENGAGEMENT_TYPES = [
 const SOCIAL_LINKS = [
   { label: "LinkedIn", href: SITE_CONFIG.social.linkedin },
   { label: "Behance", href: SITE_CONFIG.social.behance },
-  { label: "Dribbble", href: SITE_CONFIG.social.dribbble },
 ].filter((link) => link.href);
 
 export default function ContactPage() {
   return (
-    <Section
-      spec={{ index: "01 / CONTACT", type: "display-xl · 500", grid: "12 col · 32 gutter", space: "160 / 96" }}
-      className="pt-16 md:pt-24"
-    >
+    <Section className="pt-16 md:pt-24">
       <Container>
         <Reveal inView={false}>
           <MonoLabel as="p" className="mb-6">

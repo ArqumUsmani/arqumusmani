@@ -6,7 +6,11 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: var(--font-inter-tight);
+  /* Body/UI default. Display headings opt into --font-display explicitly
+     (font-display utility) — this is not a blanket site-wide swap yet,
+     since most sections still get restyled phase by phase. */
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-general-sans);
   --font-mono: var(--font-geist-mono);
   --font-serif: var(--font-instrument-serif);
 
@@ -25,7 +29,7 @@
   --text-display-xl--letter-spacing: -0.045em;
   --text-display-xl--font-weight: 500;
 
-  --text-display-l: clamp(2.5rem, 6vw, 5rem);
+  --text-display-l: 8rem;
   --text-display-l--line-height: 1;
   --text-display-l--letter-spacing: -0.035em;
   --text-display-l--font-weight: 500;
@@ -187,4 +191,32 @@
   to {
     transform: translate3d(-50%, 0, 0);
   }
+}
+
+/* Grain texture (redesign): a tiled feTurbulence SVG data URI, not an image
+   asset — zero network requests, zero JS. Static (no animated seed) since a
+   flickering-per-frame grain is a distinct, heavier decision than a static
+   "premium print" texture; this is the latter. Apply via .bg-grain on any
+   dark/hero section that wants it — opacity lives on the ::before pseudo so
+   the element's own background-color still shows through underneath.
+   Deliberately does NOT auto-lift children above the grain layer (an
+   earlier version used a `.bg-grain > *` rule for that, which fought
+   Tailwind's `absolute`/`z-*` utilities on equal specificity, whichever
+   came later in the stylesheet). Give real content its own `relative z-10`
+   (or higher) instead. */
+.bg-grain {
+  position: relative;
+  isolation: isolate;
+}
+
+.bg-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
 }

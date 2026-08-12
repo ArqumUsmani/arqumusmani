@@ -13,7 +13,6 @@ type ChainedNavProps = {
 export function ChainedNav({ slug, title, domain }: ChainedNavProps) {
   return (
     <Section
-      spec={{ index: "10 / NEXT", type: "display-l · 500", space: "96 / 96" }}
       className="border-t border-mist"
     >
       <Container>

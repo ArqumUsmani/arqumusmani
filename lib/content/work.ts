@@ -52,11 +52,6 @@ export async function getWorkBySlug(slug: string): Promise<WorkEntry | undefined
   return all.find((entry) => entry.frontmatter.slug === slug);
 }
 
-export async function getFeaturedWork(): Promise<WorkEntry[]> {
-  const all = await getAllWork();
-  return all.filter((entry) => entry.frontmatter.featured);
-}
-
 export async function getAdjacentWork(slug: string): Promise<WorkEntry | undefined> {
   const all = await getAllWork();
   const index = all.findIndex((entry) => entry.frontmatter.slug === slug);

@@ -15,11 +15,10 @@ export type TimelineEntry = {
 };
 
 // Scrollspy: whichever row crosses the vertical center of the viewport
-// becomes "active" and the rest dim, same one-active-at-a-time state shape
-// DesignedForStrip already uses for its hover strip. A centered rootMargin
-// band (rather than threshold on the full element) is what makes a tall
-// row register as active exactly when it's the one actually being read,
-// not the instant its top edge appears.
+// becomes "active" and the rest dim, one entry at a time. A centered
+// rootMargin band (rather than threshold on the full element) is what
+// makes a tall row register as active exactly when it's the one actually
+// being read, not the instant its top edge appears.
 export function CareerTimeline({ entries }: { entries: TimelineEntry[] }) {
   const [activeOrg, setActiveOrg] = useState<string | null>(null);
   const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
