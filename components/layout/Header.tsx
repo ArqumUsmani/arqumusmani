@@ -98,7 +98,7 @@ export function Header() {
               <NavLinks pathname={pathname} className="hidden items-center gap-8 md:flex" />
 
               <div className="hidden items-center gap-6 md:flex">
-                <ThemeToggle />
+                <ThemeToggle iconOnly />
                 <AvailabilityPill />
               </div>
 
@@ -154,8 +154,8 @@ export function Header() {
                 <NavLinks pathname={pathname} className="flex items-center gap-6" />
                 <span className="h-4 w-px bg-mist" aria-hidden="true" />
                 <ThemeToggle iconOnly />
-                <span className="h-4 w-px bg-mist" aria-hidden="true" />
-                <AvailabilityPill />
+                {/* <span className="h-4 w-px bg-mist" aria-hidden="true" /> */}
+                {/* <AvailabilityPill /> */}
               </div>
             </GlassSurface>
           </motion.div>

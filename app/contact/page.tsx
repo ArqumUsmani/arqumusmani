@@ -40,7 +40,7 @@ export default function ContactPage() {
           <h1 className="max-w-[14ch] text-display-xl text-ink">{preventOrphans("Let's talk.")}</h1>
         </Reveal>
         <Reveal inView={false} index={1} className="mt-8 flex flex-wrap items-center gap-6">
-          <AvailabilityPill />
+          {/* <AvailabilityPill /> */}
           <p className="text-body-s text-ash">Typical response time: 2 business days</p>
         </Reveal>
 
