@@ -33,16 +33,22 @@ export function SmoothScroll() {
 
     // Lenis measures the page's scrollable height once on init. Content
     // that restructures the DOM after that — fonts finishing load,
-    // SplitText wrapping every character in its own element — changes the
-    // real document height without Lenis knowing, so its cached bounds go
-    // stale and it can clamp scrolling short of the actual bottom. Watching
-    // <html> for size changes and re-measuring on every change keeps Lenis
-    // (and ScrollTrigger's own trigger positions) honest.
+    // SplitText wrapping every character in its own element, images
+    // resolving their intrinsic size — changes the real document height
+    // without Lenis knowing, so its cached bounds go stale and it can clamp
+    // scrolling short of the actual bottom (e.g. About never quite reaching
+    // the footer). Watching <body>, not <html>, is what actually catches
+    // that: <html> is pinned to `h-full` (100% of the viewport) in the root
+    // layout, so its own box never grows no matter how tall the content
+    // gets — a ResizeObserver on it only ever fires on real viewport
+    // resizes. <body> uses `min-h-full` instead, so its box genuinely grows
+    // with content, and re-measuring on every change keeps Lenis (and
+    // ScrollTrigger's own trigger positions) honest.
     const resizeObserver = new ResizeObserver(() => {
       lenis.resize();
       ScrollTrigger.refresh();
     });
-    resizeObserver.observe(document.documentElement);
+    resizeObserver.observe(document.body);
 
     return () => {
       resizeObserver.disconnect();

@@ -11,8 +11,8 @@ const FOOTER_COLUMNS = [
     heading: "Explore",
     links: [
       { label: "Selected work", href: "/work" },
-      { label: "Notes", href: "/notes" },
       { label: "About", href: "/about" },
+      { label: "Contact", href: "/contact" },
     ],
   },
   {

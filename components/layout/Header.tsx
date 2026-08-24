@@ -91,7 +91,7 @@ export function Header() {
         >
           {/* <GlassSurface width="100%" height="100%" borderRadius={PILL_RADIUS} className="!h-full !w-full"> */}
             <Container className="flex h-full w-full items-center justify-between">
-              <Link href="/" className="font-display text-body font-semibold tracking-[-0.01em] text-ink">
+              <Link href="/about" className="font-display text-body font-semibold tracking-[-0.01em] text-ink">
                 Arqum Usmani
               </Link>
 

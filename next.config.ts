@@ -22,6 +22,12 @@ const nextConfig: NextConfig = {
         destination: "https://www.arqumusmani.com/:path*",
         permanent: true,
       },
+      // The site now has no standalone home page — About is the landing
+      // page. Notes and the internal styleguide were removed outright.
+      { source: "/", destination: "/about", permanent: true },
+      { source: "/notes", destination: "/about", permanent: true },
+      { source: "/notes/:path*", destination: "/about", permanent: true },
+      { source: "/styleguide", destination: "/about", permanent: true },
     ];
   },
 };
