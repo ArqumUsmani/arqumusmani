@@ -47,6 +47,21 @@ Class-based (`.dark` on `<html>`), toggled by `components/layout/ThemeToggle.tsx
 
 Placeholder images use a fixed `graphite` fill (not the `paper`/`ink` tokens) specifically so they stay visible as a distinct block against both a light and a near-black page — an `ink`-filled placeholder disappears into a dark-mode background. Keep that in mind if you regenerate placeholders or add new ones before real photography/screenshots replace them.
 
+## Visit notifications
+
+`components/analytics/VisitBeacon.tsx` pings `app/api/visit/route.ts` once per browser session; the route geo-locates the request from Vercel's `x-vercel-ip-*` headers, drops bots (`isbot`), your own IPs, and repeats, then sends a phone push via [ntfy.sh](https://ntfy.sh) (`lib/visit-notify.ts`).
+
+Setup:
+
+1. Pick a long, unguessable topic name — it's the only secret, anyone who has it can read your alerts (e.g. `arqum-portfolio-<random>`).
+2. Install the ntfy app (iOS/Android/web) and subscribe to that exact topic.
+3. Set env vars (`vercel env add`, or `.env.local` for dev):
+   - `NTFY_TOPIC` — the topic string (required; unset = visits log to the server console only).
+   - `NTFY_SERVER` — optional, defaults to `https://ntfy.sh`.
+   - `NOTIFY_IGNORE_IPS` — optional, comma-separated IPs to never alert on. Trigger one ping to see your current IP in the message, then add it.
+
+What a visit alert can and can't include: approximate city / region / country, IP, referrer, device, which page, timezone. **Not** a name — anonymous visitors have none. City accuracy is coarse and VPN/mobile traffic misreports. Logging visitor IP + city is personal data under GDPR/similar — add a short line to a privacy notice and don't retain it (this setup is fire-and-forget, nothing is stored).
+
 ## Content model reference
 
 - Frontmatter schemas: `lib/content/schema.ts` (Zod — this is the source of truth for what fields exist).

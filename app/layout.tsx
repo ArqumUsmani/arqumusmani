@@ -6,6 +6,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
+import { VisitBeacon } from "@/components/analytics/VisitBeacon";
 import { SITE_CONFIG } from "@/lib/site-config";
 
 // Body/UI text — replaces Inter Tight.
@@ -112,6 +113,7 @@ export default function RootLayout({
         </main>
         <Footer />
         <Analytics />
+        <VisitBeacon />
       </body>
     </html>
   );
