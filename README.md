@@ -47,6 +47,20 @@ Class-based (`.dark` on `<html>`), toggled by `components/layout/ThemeToggle.tsx
 
 Placeholder images use a fixed `graphite` fill (not the `paper`/`ink` tokens) specifically so they stay visible as a distinct block against both a light and a near-black page — an `ink`-filled placeholder disappears into a dark-mode background. Keep that in mind if you regenerate placeholders or add new ones before real photography/screenshots replace them.
 
+## Analytics
+
+Three layers, each dormant until its env var is set:
+
+| Tool | Wired in | Gives you |
+| --- | --- | --- |
+| **Vercel Analytics** | `app/layout.tsx` (`@vercel/analytics`) | Cookieless pageviews / Web Vitals. Already on. |
+| **PostHog** | `instrumentation-client.ts` | Autocapture (which project links get clicked), scroll depth, time on page, navigation paths, funnels, **session replay**. Set `NEXT_PUBLIC_POSTHOG_KEY` + `NEXT_PUBLIC_POSTHOG_HOST`. Turn on "Record user sessions" in the PostHog project for replay. |
+| **GA4** | `app/layout.tsx` (`<GoogleAnalytics>`) | Aggregate reporting — engagement time, scroll, source/medium, geo, device. Set `NEXT_PUBLIC_GA_ID`. Enable "Enhanced measurement" in the GA admin. |
+
+Screen resolution, language, and referrer are captured automatically by both PostHog and GA4 — no custom code. Theme (dark/light) is sent as a PostHog super-property.
+
+**Consent banner — not included.** GA4 and PostHog set first-party cookies. For EU/UK/California visitors that legally needs a consent prompt. Options when you want it: PostHog's built-in `opt_in_capturing` gate, [`vanilla-cookieconsent`](https://github.com/orestbida/cookieconsent), or a CMP. Until then, `/privacy` documents what's collected (linked in the footer) — that's the floor, not full compliance. To run cookieless instead (no banner, lose returning-visitor stitching): PostHog `persistence: 'memory'` + GA `client_storage: 'none'`.
+
 ## Visit notifications
 
 `components/analytics/VisitBeacon.tsx` pings `app/api/visit/route.ts` once per browser session; the route geo-locates the request from Vercel's `x-vercel-ip-*` headers, drops bots (`isbot`), your own IPs, and repeats, then sends a phone push via [ntfy.sh](https://ntfy.sh) (`lib/visit-notify.ts`).

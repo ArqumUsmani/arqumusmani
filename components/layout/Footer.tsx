@@ -127,9 +127,17 @@ export function Footer() {
       </div>
 
       <div className="mt-6 flex items-center justify-between px-2">
-        <p className="font-mono text-mono-label uppercase text-ash">
-          {SITE_CONFIG.name} &copy; {year}
-        </p>
+        <div className="flex items-center gap-4">
+          <p className="font-mono text-mono-label uppercase text-ash">
+            {SITE_CONFIG.name} &copy; {year}
+          </p>
+          <a
+            href="/privacy"
+            className="font-mono text-mono-label uppercase text-ash transition-colors duration-150 hover:text-ink"
+          >
+            Privacy
+          </a>
+        </div>
         <Clock />
       </div>
     </footer>

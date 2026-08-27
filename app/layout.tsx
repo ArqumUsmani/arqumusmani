@@ -2,12 +2,17 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Geist_Mono, Instrument_Serif } from "next/font/google";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { VisitBeacon } from "@/components/analytics/VisitBeacon";
 import { SITE_CONFIG } from "@/lib/site-config";
+
+// GA4 measurement ID (starts with G-). PostHog is wired separately in
+// instrumentation-client.ts. Both no-op when their env var is unset.
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 // Body/UI text — replaces Inter Tight.
 const inter = Inter({
@@ -115,6 +120,7 @@ export default function RootLayout({
         <Analytics />
         <VisitBeacon />
       </body>
+      {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
     </html>
   );
 }
