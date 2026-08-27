@@ -59,6 +59,12 @@ Three layers, each dormant until its env var is set:
 
 Screen resolution, language, and referrer are captured automatically by both PostHog and GA4 — no custom code. Theme (dark/light) is sent as a PostHog super-property.
 
+PostHog traffic goes through a **same-origin reverse proxy** — `next.config.ts` rewrites `/ingest/*` to PostHog's US hosts. Two reasons: the production CSP (`vercel.json`) is `connect-src 'self'`, and ad/tracker blockers drop `*.i.posthog.com` directly. EU accounts: swap the rewrite destination hosts. The PostHog **MCP server** is wired in `.mcp.json` (needs `POSTHOG_PERSONAL_API_KEY` in the environment; only connects in an interactive `claude` session).
+
+### PostHog → phone digest
+
+`app/api/cron/posthog-digest/route.ts` runs daily (07:00 UTC, `vercel.json` `crons`), queries the last 24h via the PostHog Query API (`lib/posthog-analytics.ts`), and pushes views / visitors / top pages / referrers to the same ntfy topic as the visit alerts. Needs `POSTHOG_PERSONAL_API_KEY` (`phx_`, server secret), `POSTHOG_PROJECT_ID`, `NTFY_TOPIC`, and `CRON_SECRET` (Vercel Cron sends it as a Bearer token; the route rejects anything else). Hit `GET /api/cron/posthog-digest` by hand to test. Change the cadence in `vercel.json` (weekly: `0 7 * * 1`).
+
 **Consent banner — not included.** GA4 and PostHog set first-party cookies. For EU/UK/California visitors that legally needs a consent prompt. Options when you want it: PostHog's built-in `opt_in_capturing` gate, [`vanilla-cookieconsent`](https://github.com/orestbida/cookieconsent), or a CMP. Until then, `/privacy` documents what's collected (linked in the footer) — that's the floor, not full compliance. To run cookieless instead (no banner, lose returning-visitor stitching): PostHog `persistence: 'memory'` + GA `client_storage: 'none'`.
 
 ## Visit notifications

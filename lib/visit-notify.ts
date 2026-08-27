@@ -1,14 +1,7 @@
-// Fire-and-forget "someone opened the site" alert to a phone via ntfy.sh
-// (https://ntfy.sh). One env var, no account, no SDK:
-//
-//   NTFY_TOPIC   — a long, unguessable topic string (this IS the only secret;
-//                  anyone who knows it can read your alerts). e.g.
-//                  `arqum-portfolio-9f3a1c7b2e`
-//   NTFY_SERVER  — optional, defaults to https://ntfy.sh. Set if self-hosting.
-//
-// Install the ntfy app on your phone, subscribe to that exact topic, done.
-// If NTFY_TOPIC is unset the visit is logged to the server console instead,
-// so local dev and un-provisioned deploys stay quiet rather than erroring.
+// Fire-and-forget "someone opened the site" alert to a phone. The ntfy
+// transport and its env vars live in lib/ntfy.ts.
+
+import { sendNtfy } from "@/lib/ntfy";
 
 export type VisitInfo = {
   path: string;
@@ -56,39 +49,13 @@ function buildMessage(info: VisitInfo): string {
 }
 
 export async function notifyVisit(info: VisitInfo): Promise<void> {
-  const topic = process.env.NTFY_TOPIC;
-  const message = buildMessage(info);
-
-  if (!topic) {
-    console.log("[visit] NTFY_TOPIC not set — visit:", message.replace(/\n/g, " | "));
-    return;
-  }
-
-  const server = (process.env.NTFY_SERVER ?? "https://ntfy.sh").replace(/\/$/, "");
-  const headers: Record<string, string> = {
-    // Header values must be Latin-1; a flag emoji or accented city name here
-    // throws. Keep the Title ASCII and let Unicode live in the body.
-    Title: "Portfolio visit",
-    Tags: "eyes",
-    Priority: "default",
-  };
-
-  if (info.latitude && info.longitude) {
-    headers.Click = `https://www.google.com/maps?q=${info.latitude},${info.longitude}`;
-  }
-
-  try {
-    const res = await fetch(`${server}/${encodeURIComponent(topic)}`, {
-      method: "POST",
-      headers,
-      body: `${info.flag} ${message}`.trim(),
-      // Don't let a slow ntfy call hang the request handler.
-      signal: AbortSignal.timeout(4000),
-    });
-    if (!res.ok) {
-      console.error("[visit] ntfy responded", res.status, await res.text().catch(() => ""));
-    }
-  } catch (err) {
-    console.error("[visit] ntfy send failed:", err);
-  }
+  await sendNtfy({
+    title: "Portfolio visit",
+    tags: "eyes",
+    message: `${info.flag} ${buildMessage(info)}`.trim(),
+    click:
+      info.latitude && info.longitude
+        ? `https://www.google.com/maps?q=${info.latitude},${info.longitude}`
+        : undefined,
+  });
 }
