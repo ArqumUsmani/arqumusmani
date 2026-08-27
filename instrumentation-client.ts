@@ -10,13 +10,18 @@
 // GA4 is loaded separately via <GoogleAnalytics> in app/layout.tsx.
 
 const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com";
+// Where the PostHog UI lives — only used to build "open in PostHog" links from
+// the toolbar / session replay. Event traffic goes through the /ingest proxy.
+const posthogUiHost = process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.posthog.com";
 
 if (posthogKey) {
   import("posthog-js")
     .then(({ default: posthog }) => {
       posthog.init(posthogKey, {
-        api_host: posthogHost,
+        // Same-origin proxy (rewrites in next.config.ts) so ad/tracker
+        // blockers don't silently drop events.
+        api_host: "/ingest",
+        ui_host: posthogUiHost,
         // Modern default bundle: SPA pageviews via history API, pageleave
         // events (needed for time-on-page and scroll depth), sensible
         // autocapture. Pin the date so behaviour doesn't shift under us on a
