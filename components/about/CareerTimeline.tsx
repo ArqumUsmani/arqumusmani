@@ -66,7 +66,7 @@ export function CareerTimeline({ entries }: { entries: TimelineEntry[] }) {
             <Reveal index={i} className="grid grid-cols-4 gap-6 py-6 md:grid-cols-12 md:gap-8 md:py-8">
               <MonoLabel
                 className={cn(
-                  "col-span-4 self-start transition-colors duration-300 md:col-span-3",
+                  "col-span-4 self-start transition-colors duration-150 md:col-span-3",
                   active ? "text-ink" : "text-ash",
                 )}
               >
@@ -74,14 +74,14 @@ export function CareerTimeline({ entries }: { entries: TimelineEntry[] }) {
               </MonoLabel>
               <p
                 className={cn(
-                  "col-span-4 text-body-l transition-colors duration-300 md:col-span-4",
+                  "col-span-4 text-body-l transition-colors duration-150 md:col-span-4",
                   active ? "text-ink" : "text-graphite",
                 )}
               >
                 {entry.org}
               </p>
               <div className="col-span-4 md:col-span-3">
-                <p className={cn("text-body transition-colors duration-300", active ? "text-ink" : "text-graphite")}>
+                <p className={cn("text-body transition-colors duration-150", active ? "text-ink" : "text-graphite")}>
                   {entry.role}
                 </p>
                 {entry.scope && <p className="mt-2 text-body-s text-ash">{entry.scope}</p>}

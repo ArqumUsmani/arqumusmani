@@ -79,7 +79,7 @@ export function ThemeToggle({ className, iconOnly }: ThemeToggleProps) {
       }}
       aria-label={`Switch to ${next} mode`}
       className={cn(
-        "text-graphite transition-colors duration-300 hover:text-ink",
+        "text-graphite transition-colors duration-150 hover:text-ink",
         iconOnly ? "flex items-center justify-center" : "font-mono text-mono-label uppercase",
         className,
       )}

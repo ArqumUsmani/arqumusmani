@@ -140,9 +140,12 @@ export default function SplitText({
               },
               onComplete: () => {
                 animationCompletedRef.current = true;
+                // Drop the promotion hint once the stagger is done — leaving
+                // will-change on every character permanently pins a
+                // compositor layer per glyph for the life of the page.
+                gsap.set(targets!, { clearProps: "willChange" });
                 onCompleteRef.current?.();
               },
-              willChange: "transform, opacity",
               force3D: true,
             },
           );
@@ -187,7 +190,6 @@ export default function SplitText({
     display: "inline-block",
     whiteSpace: "normal",
     wordWrap: "break-word",
-    willChange: "transform, opacity",
   };
   const Tag = tag;
 

@@ -21,7 +21,7 @@ export function ChainedNav({ slug, title, domain }: ChainedNavProps) {
             Next case study · {domain}
           </MonoLabel>
           <div className="flex items-end justify-between gap-6">
-            <h2 className="max-w-[20ch] text-display-l text-ink transition-colors duration-300 group-hover:text-signal">
+            <h2 className="max-w-[20ch] text-display-l text-ink transition-colors duration-150 group-hover:text-signal">
               {preventOrphans(title)}
             </h2>
             <span

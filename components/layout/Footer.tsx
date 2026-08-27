@@ -60,7 +60,7 @@ export function Footer() {
               <Reveal index={1} className="mt-10">
                 <a
                   href={`mailto:${SITE_CONFIG.email}?subject=Full-time%20role`}
-                  className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-ink px-7 py-4 font-mono text-mono-label uppercase text-paper transition-colors duration-300 hover:bg-graphite"
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-ink px-7 py-4 font-mono text-mono-label uppercase text-paper transition-colors duration-150 hover:bg-graphite active:scale-[0.97] active:opacity-100"
                 >
                   Hire me full-time
                 </a>
@@ -68,7 +68,7 @@ export function Footer() {
                   Also open to contract and advisory work,{" "}
                   <a
                     href={`mailto:${SITE_CONFIG.email}?subject=Project%20inquiry`}
-                    className="text-graphite underline decoration-mist decoration-1 underline-offset-4 transition-colors duration-300 hover:text-ink hover:decoration-signal"
+                    className="text-graphite underline decoration-mist decoration-1 underline-offset-4 transition-colors duration-150 hover:text-ink hover:decoration-signal"
                   >
                     reach out directly
                   </a>
@@ -93,7 +93,7 @@ export function Footer() {
                             href={link.href}
                             target={"external" in link && link.external ? "_blank" : undefined}
                             rel={"external" in link && link.external ? "noreferrer" : undefined}
-                            className="text-body text-graphite transition-colors duration-300 hover:text-ink"
+                            className="text-body text-graphite transition-colors duration-150 hover:text-ink"
                           >
                             {link.label}
                           </a>

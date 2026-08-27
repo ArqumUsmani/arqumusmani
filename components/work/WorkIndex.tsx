@@ -60,7 +60,7 @@ export function WorkIndex({ items }: WorkIndexProps) {
             onClick={() => setActiveDomain(domain)}
             aria-pressed={activeDomain === domain}
             className={cn(
-              "font-mono text-mono-label uppercase transition-colors duration-300",
+              "font-mono text-mono-label uppercase transition-colors duration-150",
               activeDomain === domain ? "text-signal" : "text-ash hover:text-ink",
             )}
           >
@@ -85,7 +85,7 @@ export function WorkIndex({ items }: WorkIndexProps) {
               <div className="hidden items-center gap-6 py-7 md:grid md:grid-cols-12">
                 <span
                   className={cn(
-                    "col-span-1 font-mono text-mono-label transition-colors duration-300",
+                    "col-span-1 font-mono text-mono-label transition-colors duration-150",
                     hoveredSlug === item.slug ? "text-signal" : "text-ash",
                   )}
                 >
@@ -93,7 +93,7 @@ export function WorkIndex({ items }: WorkIndexProps) {
                 </span>
                 <span
                   className={cn(
-                    "col-span-5 text-body-l transition-colors duration-300",
+                    "col-span-5 text-body-l transition-colors duration-150",
                     hoveredSlug === item.slug ? "text-signal" : "text-ink",
                   )}
                 >
@@ -101,7 +101,7 @@ export function WorkIndex({ items }: WorkIndexProps) {
                 </span>
                 <span
                   className={cn(
-                    "col-span-2 font-mono text-mono-label uppercase transition-colors duration-300",
+                    "col-span-2 font-mono text-mono-label uppercase transition-colors duration-150",
                     hoveredSlug === item.slug ? "text-signal" : "text-ash",
                   )}
                 >
@@ -109,7 +109,7 @@ export function WorkIndex({ items }: WorkIndexProps) {
                 </span>
                 <span
                   className={cn(
-                    "col-span-3 text-body tabular-nums transition-colors duration-300",
+                    "col-span-3 text-body tabular-nums transition-colors duration-150",
                     hoveredSlug === item.slug ? "text-signal" : "text-graphite",
                   )}
                 >

@@ -10,7 +10,7 @@ import { contactSchema, ENGAGEMENT_TYPES, type ContactFormValues } from "@/lib/c
 // No outline-none: the global :focus-visible ring must never be suppressed.
 // The border-ink shift is additive feedback, not a replacement for it.
 const inputClassName =
-  "w-full border border-mist bg-paper px-4 py-3 text-body text-ink transition-colors duration-300 focus:border-ink";
+  "w-full border border-mist bg-paper px-4 py-3 text-body text-ink transition-colors duration-150 focus:border-ink";
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
@@ -22,6 +22,9 @@ export function ContactForm() {
     formState: { errors, isSubmitting },
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
+    // Validate on blur, then keep fields live once touched — inline feedback
+    // as you go, not a wall of errors on submit.
+    mode: "onBlur",
     defaultValues: { name: "", email: "", type: undefined, message: "" },
   });
 
@@ -96,8 +99,11 @@ export function ContactForm() {
             <label
               key={type}
               className={cn(
-                "cursor-pointer border px-4 py-2 font-mono text-mono-label uppercase transition-colors duration-300",
+                "cursor-pointer border px-4 py-2 font-mono text-mono-label uppercase transition-colors duration-150",
                 "border-mist text-graphite has-[:checked]:border-ink has-[:checked]:text-ink",
+                // The real <input> is sr-only, so the global :focus-visible
+                // ring lands on a clipped 1px box. Mirror it onto the label.
+                "has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-signal",
               )}
             >
               <input type="radio" value={type} className="sr-only" {...register("type")} />
@@ -135,7 +141,7 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="inline-flex items-center rounded-full justify-center bg-ink px-6 py-4 font-mono text-mono-label uppercase text-paper transition-colors duration-300 hover:bg-graphite disabled:opacity-50"
+          className="inline-flex items-center rounded-full justify-center bg-ink px-6 py-4 font-mono text-mono-label uppercase text-paper transition-colors duration-150 hover:bg-graphite disabled:opacity-50"
         >
           {isSubmitting ? "Sending…" : "Send message"}
         </button>

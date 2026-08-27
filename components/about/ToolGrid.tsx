@@ -9,10 +9,9 @@ export type Tool = {
   logoSrc: string;
 };
 
-// A fixed 40ms-per-tile stagger and one-time reveal — distinct from the
-// shared Reveal primitive, which now replays on every scroll re-entry
-// (site-wide) and steps at 60ms. A grid of a dozen small tiles re-animating
-// every time it crosses the viewport reads as noise, not craft; once is enough.
+// A fixed 40ms-per-tile stagger — tighter than the shared Reveal primitive's
+// 60ms step, which suits a grid of a dozen small tiles better than the
+// section-scale cadence. Both reveal once (not on every scroll re-entry).
 export function ToolGrid({ tools }: { tools: Tool[] }) {
   const reduceMotion = useReducedMotion();
 

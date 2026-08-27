@@ -35,9 +35,11 @@ export function ReadingProgress() {
       aria-hidden="true"
       className="fixed left-0 top-0 z-[70] h-px w-full bg-transparent"
     >
+      {/* scaleX, not width: transform is compositor-only, width forces a
+          layout on every scroll frame. origin-left so it grows from the start. */}
       <div
-        className="h-full bg-signal"
-        style={{ width: `${progress * 100}%` }}
+        className="h-full w-full origin-left bg-signal"
+        style={{ transform: `scaleX(${progress})` }}
       />
     </div>
   );

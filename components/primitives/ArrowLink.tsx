@@ -22,7 +22,7 @@ export function ArrowLink({
       )}
       {...props}
     >
-      <span className="underline decoration-transparent decoration-1 underline-offset-4 transition-colors duration-300 group-hover:decoration-signal">
+      <span className="underline decoration-transparent decoration-1 underline-offset-4 transition-colors duration-150 group-hover:decoration-signal">
         {children}
       </span>
       <svg

@@ -124,9 +124,11 @@ export default async function AboutPage() {
               </Reveal>
             </div>
 
-            <div className="md:col-span-4">
+            {/* Portrait is desktop-only — on a phone it pushed the actual
+                content (the writing) below the fold for no real payoff. */}
+            <div className="hidden md:col-span-4 md:block">
               <Reveal inView={false} index={1}>
-                <PortraitFrame priority sizes="(max-width: 768px) 100vw, 640px" />
+                <PortraitFrame priority sizes="640px" />
               </Reveal>
             </div>
           </div>

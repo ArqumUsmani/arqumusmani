@@ -68,7 +68,7 @@ export default function ContactPage() {
               </MonoLabel>
               <a
                 href={`mailto:${SITE_CONFIG.email}`}
-                className="text-body-l text-ink underline decoration-mist decoration-1 underline-offset-4 transition-colors duration-300 hover:decoration-signal"
+                className="text-body-l text-ink underline decoration-mist decoration-1 underline-offset-4 transition-colors duration-150 hover:decoration-signal"
               >
                 {SITE_CONFIG.email}
               </a>
@@ -77,7 +77,7 @@ export default function ContactPage() {
                   href={`https://wa.me/${SITE_CONFIG.whatsapp.replace("+", "")}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-body-l text-ink underline decoration-mist decoration-1 underline-offset-4 transition-colors duration-300 hover:decoration-signal"
+                  className="text-body-l text-ink underline decoration-mist decoration-1 underline-offset-4 transition-colors duration-150 hover:decoration-signal"
                 >
                   WhatsApp: {SITE_CONFIG.whatsapp}
                 </a>
@@ -92,7 +92,7 @@ export default function ContactPage() {
                     href={link.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="font-mono text-mono-label uppercase text-graphite transition-colors duration-300 hover:text-ink"
+                    className="font-mono text-mono-label uppercase text-graphite transition-colors duration-150 hover:text-ink"
                   >
                     {link.label}
                   </a>

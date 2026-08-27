@@ -25,7 +25,7 @@ export function Reveal({ className, index = 0, inView = true, ...props }: Reveal
     : { hidden: { opacity: 0, y: RISE_PX }, visible: { opacity: 1, y: 0 } };
 
   const viewportProps = inView
-    ? { whileInView: "visible", viewport: { once: false, margin: "-80px" } }
+    ? { whileInView: "visible", viewport: { once: true, margin: "-80px" } }
     : { animate: "visible" };
 
   return (

@@ -3,7 +3,7 @@ import { cn } from "@/lib/cn";
 // Static import (not a "/about/Side.png" string src) so Next generates a
 // blur placeholder and intrinsic dimensions automatically instead of us
 // hand-maintaining width/height and shipping no LQIP at all.
-import portraitSrc from "@/public/about/Side.png";
+import portraitSrc from "@/public/about/SideSmile.png";
 
 type PortraitFrameProps = {
   sizes: string;
@@ -18,7 +18,7 @@ type PortraitFrameProps = {
 // for a laptop screen, while the vh term keeps a short-but-wide viewport
 // (e.g. an ultrawide monitor) from stretching the portrait's height too far.
 const WIDTH = {
-  hero: "clamp(300px, min(22vw, 42vh), 640px)",
+  hero: "clamp(520px, min(22vw, 42vh), 640px)",
   teaser: "clamp(240px, min(16vw, 32vh), 460px)",
 } as const;
 

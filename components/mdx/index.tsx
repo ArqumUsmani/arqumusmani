@@ -30,7 +30,7 @@ export const proseComponents: MDXComponents = {
   ),
   a: (props) => (
     <a
-      className="text-ink underline decoration-mist decoration-1 underline-offset-4 transition-colors duration-300 hover:decoration-signal"
+      className="text-ink underline decoration-mist decoration-1 underline-offset-4 transition-colors duration-150 hover:decoration-signal"
       {...props}
     />
   ),

@@ -21,7 +21,7 @@ const FIELDS: Array<{ key: keyof MetaBarProps; label: string }> = [
 
 export function MetaBar(props: MetaBarProps) {
   return (
-    <div className="border-y border-mist bg-paper/95 backdrop-blur md:sticky md:top-20 md:z-30 lg:top-24">
+    <div className="border-y border-mist bg-paper/95 backdrop-blur reduce-transparency:bg-paper reduce-transparency:backdrop-blur-none md:sticky md:top-20 md:z-30 lg:top-24">
       <Container>
         <dl className="grid grid-cols-2 gap-x-6 gap-y-4 py-6 sm:grid-cols-3 md:grid-cols-6 md:gap-4 md:py-5">
           {FIELDS.map(({ key, label }) => (

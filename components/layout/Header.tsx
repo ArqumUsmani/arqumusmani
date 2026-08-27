@@ -39,7 +39,7 @@ function NavLinks({ pathname, className }: { pathname: string; className?: strin
             key={item.href}
             href={item.href}
             aria-current={isActive ? "page" : undefined}
-            className="flex items-center gap-2 font-mono text-mono-label uppercase text-graphite transition-colors duration-300 hover:text-ink"
+            className="flex items-center gap-2 font-mono text-mono-label uppercase text-graphite transition-colors duration-150 hover:text-ink"
           >
             {item.label}
             {isActive && <span className="h-1 w-1 rounded-full bg-signal" aria-hidden="true" />}
@@ -81,39 +81,43 @@ export function Header() {
       {/* Fixed reserved height regardless of condensed state — this pill
           only ever fades/slides within that space, so nothing below the
           header reflows when it hides. */}
-      <header className="sticky top-0 z-50 h-24 md:h-28">
+      <header className="sticky top-0 z-50 h-24 px-4 md:h-28 md:px-6">
+        {/* Translucent floating pill: content scrolls under it through a
+            blur, not behind bare links on paper. rounded-full matches the
+            condensed bottom pill; the px on <header> above keeps it off the
+            screen edges on mobile. Solid + blur-free under
+            reduced-transparency / increased-contrast. */}
         <div
           className={cn(
-            "w-full mx-auto h-16 max-w-[calc(var(--container-page)-4rem)] transition-[opacity,transform] duration-300 md:h-20 md:max-w-[calc(var(--container-page)-6rem)]",
+            "mx-auto h-16 w-full max-w-[calc(var(--container-page)-4rem)] rounded-full border border-mist/60 bg-paper/70 shadow-[0_2px_12px_-4px_rgb(0_0_0/0.08)] backdrop-blur-xl transition-[opacity,transform] duration-300 md:h-20 md:max-w-[calc(var(--container-page)-6rem)]",
             "mt-4 md:mt-6",
+            "reduce-transparency:bg-paper reduce-transparency:backdrop-blur-none more-contrast:border-ink more-contrast:bg-paper",
             condensed && "md:pointer-events-none md:-translate-y-2 md:opacity-0",
           )}
         >
-          {/* <GlassSurface width="100%" height="100%" borderRadius={PILL_RADIUS} className="!h-full !w-full"> */}
-            <Container className="flex h-full w-full items-center justify-between">
-              <Link href="/about" className="font-display text-body font-semibold tracking-[-0.01em] text-ink">
-                Arqum Usmani
-              </Link>
+          <Container className="flex h-full w-full items-center justify-between px-5! md:px-8!">
+            <Link href="/about" className="font-display text-body font-semibold tracking-[-0.01em] text-ink">
+              Arqum Usmani
+            </Link>
 
-              <NavLinks pathname={pathname} className="hidden items-center gap-8 md:flex" />
+            <NavLinks pathname={pathname} className="hidden items-center gap-8 md:flex" />
 
-              <div className="hidden items-center gap-6 md:flex">
-                <ThemeToggle iconOnly />
-                <AvailabilityPill />
-              </div>
+            <div className="hidden items-center gap-6 md:flex">
+              <ThemeToggle iconOnly />
+              <AvailabilityPill />
+            </div>
 
-              <button
-                ref={triggerRef}
-                type="button"
-                onClick={() => setMenuOpen(true)}
-                aria-haspopup="dialog"
-                aria-expanded={menuOpen}
-                className="font-mono text-mono-label uppercase md:hidden"
-              >
-                Menu
-              </button>
-            </Container>
-          {/* </GlassSurface> */}
+            <button
+              ref={triggerRef}
+              type="button"
+              onClick={() => setMenuOpen(true)}
+              aria-haspopup="dialog"
+              aria-expanded={menuOpen}
+              className="font-mono text-mono-label uppercase md:hidden"
+            >
+              Menu
+            </button>
+          </Container>
         </div>
 
         <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} triggerRef={triggerRef} />
@@ -154,8 +158,6 @@ export function Header() {
                 <NavLinks pathname={pathname} className="flex items-center gap-6" />
                 <span className="h-4 w-px bg-mist" aria-hidden="true" />
                 <ThemeToggle iconOnly />
-                {/* <span className="h-4 w-px bg-mist" aria-hidden="true" /> */}
-                {/* <AvailabilityPill /> */}
               </div>
             </GlassSurface>
           </motion.div>

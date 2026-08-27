@@ -5,6 +5,13 @@
    preference. Toggled via components/layout/ThemeToggle.tsx. */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Accessibility media queries as Tailwind variants, same mechanism as `dark`
+   above. Translucent chrome (Header pill, MetaBar) opts into a solid,
+   blur-free treatment under these — see Apple's reduced-transparency /
+   increased-contrast guidance. */
+@custom-variant reduce-transparency (@media (prefers-reduced-transparency: reduce));
+@custom-variant more-contrast (@media (prefers-contrast: more));
+
 @theme {
   /* Body/UI default. Display headings opt into --font-display explicitly
      (font-display utility) — this is not a blanket site-wide swap yet,
@@ -29,8 +36,11 @@
   --text-display-xl--letter-spacing: -0.045em;
   --text-display-xl--font-weight: 500;
 
-  --text-display-l: 8rem;
-  --text-display-l--line-height: 1;
+  /* Fluid, like display-xl/m — a fixed 8rem overflowed long case-study
+     titles (which are full sentences) on phones; the site body has no
+     horizontal-scroll guard to catch that. */
+  --text-display-l: clamp(2.75rem, 7vw, 8rem);
+  --text-display-l--line-height: 1.05;
   --text-display-l--letter-spacing: -0.035em;
   --text-display-l--font-weight: 500;
 
@@ -127,6 +137,25 @@
   :focus-visible {
     outline: 2px solid var(--color-signal);
     outline-offset: 2px;
+  }
+
+  /* Press feedback: respond on pointer-down, not release. :active fires on
+     pointerdown for both mouse and touch. Kept deliberately instant — the
+     press itself needs no easing; only the release settles back, via the
+     element's own transition-* utility where it has one. Buttons take a
+     scale; links only dim (scaling a word mid-sentence in prose reads wrong). */
+  button:not(:disabled):active {
+    transform: scale(0.97);
+  }
+
+  a[href]:active {
+    opacity: 0.6;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    button:not(:disabled):active {
+      transform: none;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
