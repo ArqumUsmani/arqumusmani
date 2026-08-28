@@ -67,9 +67,11 @@ export async function POST(request: Request) {
   const pages = parsePages(body.pages);
   const totalSeconds = pages.reduce((sum, p) => sum + p.seconds, 0);
   const deepestScroll = pages.reduce((max, p) => Math.max(max, p.scroll), 0);
+  const openedCaseStudy = pages.some((p) => p.path.startsWith("/work/") && p.path.length > "/work/".length);
 
-  // Not worth a notification: a bounce with no real engagement.
-  if (pages.length === 0 || (totalSeconds < 5 && deepestScroll < 25 && pages.length < 2)) {
+  // Not worth a notification: a bounce with no real engagement. But always
+  // send if they opened a case study — that click is the whole point.
+  if (pages.length === 0 || (!openedCaseStudy && totalSeconds < 5 && deepestScroll < 25 && pages.length < 2)) {
     return NOOP;
   }
 

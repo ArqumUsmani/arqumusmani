@@ -73,29 +73,52 @@ export async function notifyVisit(info: VisitInfo): Promise<void> {
   });
 }
 
+const CASE_PREFIX = "/work/";
+const isCaseStudy = (path: string) => path.startsWith(CASE_PREFIX) && path.length > CASE_PREFIX.length;
+const caseSlug = (path: string) => path.slice(CASE_PREFIX.length).split(/[/?#]/)[0];
+
 export async function notifyVisitSession(session: VisitSession): Promise<void> {
-  const { geo, pages } = session;
+  const { geo } = session;
+
+  // Collapse repeat visits to the same path: sum the time, keep deepest scroll.
+  const byPath = new Map<string, PageView>();
+  for (const p of session.pages) {
+    const existing = byPath.get(p.path);
+    if (existing) {
+      existing.seconds += p.seconds;
+      existing.scroll = Math.max(existing.scroll, p.scroll);
+    } else {
+      byPath.set(p.path, { ...p });
+    }
+  }
+  const pages = [...byPath.values()];
   const totalSeconds = pages.reduce((sum, p) => sum + p.seconds, 0);
 
-  // Align the page column so the clock + bar line up in the notification.
-  const width = Math.min(28, Math.max(...pages.map((p) => p.path.length)));
-  const pageLines = pages.map(
-    (p) => `${p.path.padEnd(width).slice(0, width)}  ${fmtClock(p.seconds)}  ${scrollBar(p.scroll)}`,
-  );
+  // Case studies sorted by time — the first line is what they spent most on.
+  const caseStudies = pages.filter((p) => isCaseStudy(p.path)).sort((a, b) => b.seconds - a.seconds);
+  const otherPages = pages.filter((p) => !isCaseStudy(p.path)).sort((a, b) => b.seconds - a.seconds);
 
-  const message = [
-    `${placeLabel(geo)} · ${fmtDuration(totalSeconds)}`,
-    "",
-    ...pageLines,
-    "",
-    [
-      session.referrer ?? "direct / bookmark",
-      deviceLabel(session.userAgent),
-      session.screen,
-    ]
+  const lines: string[] = [
+    `${placeLabel(geo)} · ${fmtDuration(totalSeconds)} on site`,
+    [`IP ${geo.ip}`, session.referrer ?? "direct", deviceLabel(session.userAgent), session.screen]
       .filter(Boolean)
       .join(" · "),
-  ].join("\n");
+  ];
+
+  if (caseStudies.length) {
+    const w = Math.min(18, Math.max(...caseStudies.map((p) => caseSlug(p.path).length)));
+    lines.push("", `Case studies opened (${caseStudies.length})`);
+    for (const p of caseStudies) {
+      lines.push(`  ${caseSlug(p.path).padEnd(w)}  ${fmtClock(p.seconds)}  ${scrollBar(p.scroll)}`);
+    }
+  }
+
+  if (otherPages.length) {
+    lines.push("", "Other pages");
+    for (const p of otherPages) {
+      lines.push(`  ${p.path.padEnd(9)}  ${fmtClock(p.seconds)}  ${p.scroll}% scrolled`);
+    }
+  }
 
   const uiHost = (process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.posthog.com").replace(/\/$/, "");
   const projectId = process.env.POSTHOG_PROJECT_ID;
@@ -108,8 +131,8 @@ export async function notifyVisitSession(session: VisitSession): Promise<void> {
 
   await sendNtfy({
     title: "Portfolio session",
-    tags: "eyes",
-    message: `${geo.flag} ${message}`.trim(),
+    tags: "footprints",
+    message: `${geo.flag} ${lines.join("\n")}`.trim(),
     click,
   });
 }

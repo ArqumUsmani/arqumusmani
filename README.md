@@ -72,16 +72,19 @@ PostHog traffic goes through a **same-origin reverse proxy** — `next.config.ts
 `components/analytics/VisitBeacon.tsx` sends two phone pushes via [ntfy.sh](https://ntfy.sh), both geo-located from Vercel's `x-vercel-ip-*` headers, bot/own-IP filtered (`lib/visit-request.ts`), and rendered by `lib/visit-notify.ts`:
 
 - **Arrival** (`app/api/visit`) — one low-priority ping when someone lands: city / region / country, IP, referrer, device, page. Once per session.
-- **Session** (`app/api/visit/session`) — sent when the visitor leaves or backgrounds the tab: every page they saw, seconds on each, and **max scroll depth** (with a little bar). Tapping it opens the PostHog session replay if `POSTHOG_PROJECT_ID` is set and the recording exists. Throttled so tab-flipping doesn't spam; a bounce with no real engagement sends nothing.
+- **Session** (`app/api/visit/session`) — sent when the visitor leaves or backgrounds the tab: total time, IP, and a **case-studies section sorted by time** (which projects they opened, how long, how far they scrolled), then other pages. Tapping it opens the PostHog session replay if `POSTHOG_PROJECT_ID` is set. Throttled so tab-flipping doesn't spam; a plain bounce sends nothing, but opening any case study always notifies.
 
 ```
-🇬🇧 London, England, GB · 4m 32s
+🇬🇧 London, England, GB · 4m 32s on site
+IP 81.2.69.142 · linkedin.com · Safari · iOS · 390x844
 
-/work             0:48  ██████░░░░ 61%
-/work/cloudbloom  2:31  █████████░ 94%
-/about            1:13  ████░░░░░░ 38%
+Case studies opened (2)
+  cloudbloom    2:31  █████████░ 94%
+  equinox-emr   0:22  ██░░░░░░░░ 18%
 
-linkedin.com · Safari · iOS · 390x844
+Other pages
+  /work      0:48  61% scrolled
+  /about     1:13  38% scrolled
 ```
 
 `visibilitychange → hidden` is the leave signal (fires on tab switch and phone lock too, so an engaged mobile visitor may generate two summaries). For the full picture — actual scroll-by-scroll, mouse, clicks — that's PostHog session replay; this is the phone glance.

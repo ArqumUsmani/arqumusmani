@@ -66,9 +66,13 @@ export function VisitBeacon() {
   const bankCurrentPage = useCallback(() => {
     const seconds = Math.round((Date.now() - pageStart.current) / 1000);
     pageStart.current = Date.now();
-    if (seconds < 1) return;
+    const path = trackedPath.current;
+    // A case-study page counts as "opened" even on a quick bounce — the click
+    // itself is the signal of interest. Other pages need a real dwell.
+    const isCaseStudy = path.startsWith("/work/") && path.length > "/work/".length;
+    if (seconds < 1 && !isCaseStudy) return;
 
-    const stat: PageStat = { path: trackedPath.current, seconds, scroll: maxScroll.current };
+    const stat: PageStat = { path, seconds: Math.max(seconds, 1), scroll: maxScroll.current };
     const pages = readPages();
     const source = pages.length ? pages : memoryPages.current;
     const last = source[source.length - 1];
