@@ -54,7 +54,7 @@ Three layers, each dormant until its env var is set:
 | Tool | Wired in | Gives you |
 | --- | --- | --- |
 | **Vercel Analytics** | `app/layout.tsx` (`@vercel/analytics`) | Cookieless pageviews / Web Vitals. Already on. |
-| **PostHog** | `instrumentation-client.ts` | Autocapture (which project links get clicked), scroll depth, time on page, navigation paths, funnels, **session replay**. Set `NEXT_PUBLIC_POSTHOG_KEY` + `NEXT_PUBLIC_POSTHOG_HOST`. Turn on "Record user sessions" in the PostHog project for replay. |
+| **PostHog** | `components/analytics/PostHogInit.tsx` | Autocapture (which project links get clicked), scroll depth, time on page, navigation paths, funnels, **session replay**. Set `NEXT_PUBLIC_POSTHOG_KEY` + `NEXT_PUBLIC_POSTHOG_HOST`. Turn on "Record user sessions" in the PostHog project for replay. Inits in a post-hydration `useEffect` — not `instrumentation-client.ts`, where posthog-js's DOM injection races React hydration. |
 | **GA4** | `app/layout.tsx` (`<GoogleAnalytics>`) | Aggregate reporting — engagement time, scroll, source/medium, geo, device. Set `NEXT_PUBLIC_GA_ID`. Enable "Enhanced measurement" in the GA admin. |
 
 Screen resolution, language, and referrer are captured automatically by both PostHog and GA4 — no custom code. Theme (dark/light) is sent as a PostHog super-property.

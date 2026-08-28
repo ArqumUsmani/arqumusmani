@@ -8,10 +8,11 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { VisitBeacon } from "@/components/analytics/VisitBeacon";
+import { PostHogInit } from "@/components/analytics/PostHogInit";
 import { SITE_CONFIG } from "@/lib/site-config";
 
-// GA4 measurement ID (starts with G-). PostHog is wired separately in
-// instrumentation-client.ts. Both no-op when their env var is unset.
+// GA4 measurement ID (starts with G-). PostHog is initialized in
+// <PostHogInit>. Both no-op when their env var is unset.
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 // Body/UI text — replaces Inter Tight.
@@ -119,6 +120,7 @@ export default function RootLayout({
         <Footer />
         <Analytics />
         <VisitBeacon />
+        <PostHogInit />
       </body>
       {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
     </html>

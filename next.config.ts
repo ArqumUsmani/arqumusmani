@@ -3,7 +3,7 @@ import createMDX from "@next/mdx";
 
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "mdx"],
-  // PostHog reverse proxy (see instrumentation-client.ts): posthog-js talks to
+  // PostHog reverse proxy (see components/analytics/PostHogInit.tsx): posthog-js talks to
   // /ingest on this domain, which is rewritten to PostHog's US ingestion hosts
   // below. Same-origin requests aren't caught by ad/tracker blockers, which
   // otherwise silently drop a big chunk of events. Required by the rewrite:
