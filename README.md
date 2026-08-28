@@ -69,7 +69,22 @@ PostHog traffic goes through a **same-origin reverse proxy** — `next.config.ts
 
 ## Visit notifications
 
-`components/analytics/VisitBeacon.tsx` pings `app/api/visit/route.ts` once per browser session; the route geo-locates the request from Vercel's `x-vercel-ip-*` headers, drops bots (`isbot`), your own IPs, and repeats, then sends a phone push via [ntfy.sh](https://ntfy.sh) (`lib/visit-notify.ts`).
+`components/analytics/VisitBeacon.tsx` sends two phone pushes via [ntfy.sh](https://ntfy.sh), both geo-located from Vercel's `x-vercel-ip-*` headers, bot/own-IP filtered (`lib/visit-request.ts`), and rendered by `lib/visit-notify.ts`:
+
+- **Arrival** (`app/api/visit`) — one low-priority ping when someone lands: city / region / country, IP, referrer, device, page. Once per session.
+- **Session** (`app/api/visit/session`) — sent when the visitor leaves or backgrounds the tab: every page they saw, seconds on each, and **max scroll depth** (with a little bar). Tapping it opens the PostHog session replay if `POSTHOG_PROJECT_ID` is set and the recording exists. Throttled so tab-flipping doesn't spam; a bounce with no real engagement sends nothing.
+
+```
+🇬🇧 London, England, GB · 4m 32s
+
+/work             0:48  ██████░░░░ 61%
+/work/cloudbloom  2:31  █████████░ 94%
+/about            1:13  ████░░░░░░ 38%
+
+linkedin.com · Safari · iOS · 390x844
+```
+
+`visibilitychange → hidden` is the leave signal (fires on tab switch and phone lock too, so an engaged mobile visitor may generate two summaries). For the full picture — actual scroll-by-scroll, mouse, clicks — that's PostHog session replay; this is the phone glance.
 
 Setup:
 
